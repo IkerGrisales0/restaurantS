@@ -2,6 +2,7 @@
 
 import { Search, MapPin } from "lucide-react"
 import { useState } from "react"
+import styles from "./styles/HeroSection.module.css"
 
 interface HeroSectionProps {
   onSearch: (query: string) => void
@@ -39,10 +40,6 @@ export function HeroSection({ onSearch }: HeroSectionProps) {
                 className="hero-search-input"
               />
             </div>
-            <button type="button" className="hero-search-location">
-              <MapPin size={20} />
-              <span>Ubicación</span>
-            </button>
             <button type="submit" className="hero-search-submit">
               Buscar
             </button>

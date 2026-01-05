@@ -3,6 +3,7 @@
 import { ChevronDown, Utensils, DollarSign, Check } from "lucide-react"
 import { useState, useRef, useEffect } from "react"
 import type { Filters } from "./FilterPanel"
+import styles from "./styles/FilterBar.module.css"
 
 interface FilterBarProps {
   filters: Filters

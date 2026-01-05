@@ -1,6 +1,7 @@
 "use client"
 
 import { ChefHat, Leaf, Shield, Sparkles } from "lucide-react"
+import styles from "./styles/Features.module.css"
 
 const features = [
   {

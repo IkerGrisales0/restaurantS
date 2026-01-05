@@ -3,6 +3,7 @@
 import { X, Calendar, Clock, Users } from "lucide-react"
 import { useState } from "react"
 import type { Restaurant } from "@/data/restaurants"
+import styles from "./styles/BookingModal.module.css"
 
 interface BookingModalProps {
   restaurant: Restaurant

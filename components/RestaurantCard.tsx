@@ -3,6 +3,7 @@
 import { MapPin } from "lucide-react"
 import type { Restaurant } from "@/data/restaurants"
 import Image from "next/image"
+import styles from "./styles/RestaurantCard.module.css"
 
 interface RestaurantCardProps {
   restaurant: Restaurant

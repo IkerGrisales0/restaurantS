@@ -1,0 +1,104 @@
+/* Restaurant Detail */
+.restaurant-detail {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow-y: auto;
+  background-color: var(--color-neutral-900);
+}
+
+.restaurant-detail-hero {
+  position: relative;
+  min-height: 400px;
+  height: 60vh;
+}
+
+.restaurant-detail-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.restaurant-detail-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--color-neutral-900), rgba(23, 23, 23, 0.5), transparent);
+}
+
+.restaurant-detail-hero-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-full);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: var(--color-white);
+  transition: background-color 0.2s;
+}
+
+.restaurant-detail-hero-close:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.restaurant-detail-hero-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  color: var(--color-white);
+}
+
+.restaurant-detail-hero-name {
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.restaurant-detail-content {
+  background-color: var(--color-neutral-900);
+  padding: 1.5rem 1.5rem 8rem;
+  color: var(--color-white);
+}
+
+.restaurant-detail-description {
+  margin-bottom: 1.5rem;
+}
+
+.restaurant-detail-booking {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, var(--color-neutral-900), var(--color-neutral-900), transparent);
+  padding: 1.5rem;
+}
+
+.restaurant-detail-booking-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--color-white);
+  color: var(--color-neutral-900);
+  font-weight: 500;
+  border-radius: var(--border-radius-full);
+  transition: background-color 0.2s;
+}
+
+.restaurant-detail-booking-btn:hover {
+  background-color: var(--color-neutral-100);
+}
+
+@media (min-width: 768px) {
+  .restaurant-detail {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .restaurant-detail-hero {
+    height: 50vh;
+  }
+}

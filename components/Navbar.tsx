@@ -1,6 +1,7 @@
 "use client"
 
 import { Utensils } from "lucide-react"
+import styles from "./styles/Navbar.module.css"
 
 interface NavbarProps {
   onLoginClick?: () => void
@@ -18,14 +19,14 @@ export function Navbar({ onLoginClick, onRegisterClick }: NavbarProps) {
           <span className="navbar-logo-text">ReservaFácil</span>
         </div>
 
-        <div className="navbar-actions">
+        {/* <div className="navbar-actions">
           <button onClick={onLoginClick} className="btn btn-secondary">
             Iniciar sesión
           </button>
           <button onClick={onRegisterClick} className="btn btn-primary">
             Registrarse
           </button>
-        </div>
+        </div> */}
       </div>
     </nav>
   )

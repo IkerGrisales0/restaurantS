@@ -2,6 +2,7 @@
 
 import { RestaurantCard } from "./RestaurantCard"
 import type { Restaurant } from "@/data/restaurants"
+import styles from "./styles/RestaurantGrid.module.css"
 
 interface RestaurantGridProps {
   restaurants: Restaurant[]

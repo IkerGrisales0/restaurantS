@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react'
 import { Utensils } from 'lucide-react'
+import styles from './styles/Auth.module.css'
 
 interface LoginProps {
   onSwitchToRegister: () => void
