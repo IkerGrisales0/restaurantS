@@ -2,11 +2,10 @@ import { Utensils } from "lucide-react";
 
 interface NavbarProps {
   onLoginClick?: () => void;
-  onRegisterClick?: () => void;
   onLogoClick?: () => void;
 }
 
-export function Navbar({ onLoginClick, onRegisterClick, onLogoClick }: NavbarProps) {
+export function Navbar({ onLoginClick, onLogoClick }: NavbarProps) {
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -18,11 +17,8 @@ export function Navbar({ onLoginClick, onRegisterClick, onLogoClick }: NavbarPro
         </button>
 
         <div className="navbar-actions">
-          <button className="btn btn-secondary" onClick={onLoginClick}>
+          <button className="btn btn-primary" onClick={onLoginClick}>
             Iniciar sesión
-          </button>
-          <button className="btn btn-primary" onClick={onRegisterClick}>
-            Registrarse
           </button>
         </div>
       </div>

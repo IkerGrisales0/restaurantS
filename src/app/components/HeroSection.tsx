@@ -1,4 +1,4 @@
-import { Search, MapPin } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState } from "react";
 
 interface HeroSectionProps {
@@ -33,14 +33,10 @@ export function HeroSection({ onSearch }: HeroSectionProps) {
                   setSearchInput(e.target.value);
                   onSearch(e.target.value);
                 }}
-                placeholder="Buscar restaurantes, cocina, ubicación..."
+                placeholder="Buscar restaurantes, cocina..."
                 className="hero-search-input"
               />
             </div>
-            <button type="button" className="hero-search-location">
-              <MapPin size={20} />
-              <span>Ubicación</span>
-            </button>
             <button type="submit" className="hero-search-submit">
               Buscar
             </button>

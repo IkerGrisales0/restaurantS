@@ -1,7 +1,7 @@
 import { X, MapPin, Clock, Heart, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Restaurant } from "../data/restaurants";
 import { useState } from "react";
-import { ImageWithFallback } from "./ImageWithFallback";
+import { ImageWithFallback } from "../components/ImageWithFallback";
 
 interface RestaurantDetailProps {
   restaurant: Restaurant;
@@ -96,7 +96,11 @@ export function RestaurantDetail({ restaurant, onClose, onReserve }: RestaurantD
                 onClick={() => setCurrentIndex(index)}
                 className={`restaurant-detail-thumbnail ${index === currentIndex ? 'active' : ''}`}
               >
-                <img src={img} alt={`Thumbnail ${index + 1}`} className="restaurant-detail-thumbnail-image" />
+                <ImageWithFallback 
+                  src={img} 
+                  alt={`Thumbnail ${index + 1}`} 
+                  className="restaurant-detail-thumbnail-image" 
+                />
               </button>
             ))}
           </div>

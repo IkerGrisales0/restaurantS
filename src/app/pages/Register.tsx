@@ -38,7 +38,7 @@ interface RegisterProps {
 
 export function Register({ onSwitchToLogin, onBackToHome }: RegisterProps) {
   const [registrationError, setRegistrationError] = useState<string | null>(null);
-  
+
   const {
     register,
     handleSubmit,
@@ -48,7 +48,7 @@ export function Register({ onSwitchToLogin, onBackToHome }: RegisterProps) {
     resolver: zodResolver(registerSchema),
   });
 
-  // useEffect para limpiar errores cuando el usuario empieza a escribir
+  // useEffect para limpiar errores cuando el componente monta
   useEffect(() => {
     if (registrationError) {
       setRegistrationError(null);
@@ -58,7 +58,7 @@ export function Register({ onSwitchToLogin, onBackToHome }: RegisterProps) {
   const onSubmit = async (data: RegisterFormData) => {
     try {
       setRegistrationError(null);
-      
+
       // Aquí iría la lógica de registro real (API call)
       alert(`¡Cuenta creada exitosamente!\n\nNombre: ${data.name}\nEmail: ${data.email}`);
       reset();
@@ -214,11 +214,7 @@ export function Register({ onSwitchToLogin, onBackToHome }: RegisterProps) {
 
           <div className="auth-footer">
             ¿Ya tienes cuenta?{" "}
-            <button
-              type="button"
-              className="auth-link"
-              onClick={onSwitchToLogin}
-            >
+            <button type="button" className="auth-link" onClick={onSwitchToLogin}>
               Inicia sesión
             </button>
           </div>

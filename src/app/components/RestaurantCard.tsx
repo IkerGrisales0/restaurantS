@@ -1,5 +1,6 @@
 import { MapPin } from "lucide-react";
 import type { Restaurant } from "../data/restaurants";
+import { ImageWithFallback } from "./ImageWithFallback";
 
 interface RestaurantCardProps {
   restaurant: Restaurant;
@@ -10,7 +11,7 @@ export function RestaurantCard({ restaurant, onClick }: RestaurantCardProps) {
   return (
     <div className="restaurant-card" onClick={onClick}>
       <div className="restaurant-card-image-wrapper">
-        <img
+        <ImageWithFallback
           src={restaurant.mainImage}
           alt={restaurant.name}
           className="restaurant-card-image"
@@ -33,7 +34,7 @@ export function RestaurantCard({ restaurant, onClick }: RestaurantCardProps) {
         <div className="restaurant-card-header">
           <h3 className="restaurant-card-name">{restaurant.name}</h3>
           <span className="restaurant-card-price">
-            {"$".repeat(restaurant.price)}
+            ${(restaurant.price * 25 + Math.random() * 15).toFixed(2)}
           </span>
         </div>
 

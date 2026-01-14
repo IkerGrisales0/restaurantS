@@ -17,14 +17,15 @@ import { HeroSection } from "./components/HeroSection";
 import { Features } from "./components/Features";
 import { FilterBar } from "./components/FilterBar";
 import { RestaurantGrid } from "./components/RestaurantGrid";
-import { RestaurantDetail } from "./components/RestaurantDetail";
 import { BookingModal, type BookingData } from "./components/BookingModal";
-import { Login } from "./components/Login";
-import { Register } from "./components/Register";
 import type { Filters } from "./components/FilterPanel";
 import { restaurants, type Restaurant } from "./data/restaurants";
 
-type Page = 'home' | 'login' | 'register' | 'restaurant';
+// Pages
+import { RestaurantDetail } from "./pages/RestaurantDetail";
+import { AuthPage } from "./pages/Auth";
+
+type Page = 'home' | 'auth' | 'restaurant';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -100,8 +101,7 @@ export default function App() {
   return (
     <>
       <Navbar 
-        onLoginClick={() => setCurrentPage('login')}
-        onRegisterClick={() => setCurrentPage('register')}
+        onLoginClick={() => setCurrentPage('auth')}
         onLogoClick={() => setCurrentPage('home')}
       />
       {currentPage === 'home' && (
@@ -133,15 +133,8 @@ export default function App() {
           )}
         </>
       )}
-      {currentPage === 'login' && (
-        <Login 
-          onSwitchToRegister={() => setCurrentPage('register')}
-          onBackToHome={() => setCurrentPage('home')}
-        />
-      )}
-      {currentPage === 'register' && (
-        <Register 
-          onSwitchToLogin={() => setCurrentPage('login')}
+      {currentPage === 'auth' && (
+        <AuthPage 
           onBackToHome={() => setCurrentPage('home')}
         />
       )}
