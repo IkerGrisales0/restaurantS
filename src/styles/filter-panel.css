@@ -1,0 +1,154 @@
+.filter-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.filter-panel-container {
+  display: flex;
+  height: 100%;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.filter-panel-content {
+  width: 100%;
+  max-width: 512px;
+  background-color: var(--color-white);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+}
+
+.filter-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.filter-panel-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.filter-panel-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-full);
+  transition: background-color 0.2s;
+}
+
+.filter-panel-close:hover {
+  background-color: var(--color-neutral-100);
+}
+
+.filter-panel-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.filter-section-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.filter-price-options {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-price-btn {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid var(--color-neutral-200);
+  border-radius: var(--border-radius-full);
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.filter-price-btn:hover {
+  border-color: var(--color-neutral-300);
+}
+
+.filter-price-btn.active {
+  border-color: var(--color-neutral-900);
+  background-color: var(--color-neutral-900);
+  color: var(--color-white);
+}
+
+.filter-amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-amenity-btn {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--color-neutral-200);
+  border-radius: var(--border-radius-full);
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.filter-amenity-btn:hover {
+  border-color: var(--color-neutral-300);
+}
+
+.filter-amenity-btn.active {
+  border-color: var(--color-neutral-900);
+  background-color: var(--color-neutral-900);
+  color: var(--color-white);
+}
+
+.filter-panel-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.filter-panel-reset {
+  flex: 1;
+  padding: 0.75rem;
+  border: 2px solid var(--color-neutral-200);
+  border-radius: var(--border-radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: border-color 0.2s;
+}
+
+.filter-panel-reset:hover {
+  border-color: var(--color-neutral-300);
+}
+
+.filter-panel-apply {
+  flex: 1;
+  padding: 0.75rem;
+  background-color: var(--color-neutral-900);
+  color: var(--color-white);
+  border-radius: var(--border-radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.filter-panel-apply:hover {
+  background-color: var(--color-neutral-800);
+}
+
+@media (min-width: 768px) {
+  .filter-panel-container {
+    align-items: center;
+  }
+  
+  .filter-panel-content {
+    border-radius: var(--border-radius-lg);
+  }
+}

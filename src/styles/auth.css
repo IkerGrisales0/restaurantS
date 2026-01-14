@@ -1,0 +1,232 @@
+/* Auth Pages - Login & Register */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f3ef;
+  padding: 2rem 1rem;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-logo {
+  width: 88px;
+  height: 88px;
+  background-color: var(--color-green);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.auth-logo svg {
+  width: 48px;
+  height: 48px;
+  color: var(--color-white);
+}
+
+.auth-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--color-neutral-900);
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.auth-subtitle {
+  font-size: 0.9375rem;
+  color: var(--color-neutral-600);
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.auth-card {
+  width: 100%;
+  background-color: var(--color-white);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.auth-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-neutral-700);
+}
+
+.auth-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-input-icon {
+  position: absolute;
+  left: 1rem;
+  width: 18px;
+  height: 18px;
+  color: var(--color-neutral-400);
+  pointer-events: none;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 3rem;
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 8px;
+  font-size: 0.9375rem;
+  color: var(--color-neutral-900);
+  outline: none;
+  transition: border-color 0.2s;
+  background-color: #fafafa;
+}
+
+.auth-input::placeholder {
+  color: var(--color-neutral-400);
+}
+
+.auth-input:focus {
+  border-color: var(--color-green);
+  background-color: var(--color-white);
+}
+
+.auth-input-toggle {
+  position: absolute;
+  right: 1rem;
+  width: 20px;
+  height: 20px;
+  color: var(--color-neutral-400);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.auth-input-toggle:hover {
+  color: var(--color-neutral-600);
+}
+
+.auth-submit {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--color-green);
+  color: var(--color-white);
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 0.5rem;
+}
+
+.auth-submit:hover {
+  background-color: var(--color-green-dark);
+}
+
+.auth-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-neutral-600);
+}
+
+.auth-link {
+  color: var(--color-green);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.auth-link:hover {
+  color: var(--color-green-dark);
+  text-decoration: underline;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  font-size: 0.875rem;
+  color: var(--color-neutral-400);
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-neutral-200);
+}
+
+.auth-back-button {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: var(--color-neutral-600);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid var(--color-neutral-300);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.auth-back-button:hover {
+  background-color: var(--color-neutral-50);
+  border-color: var(--color-neutral-400);
+}
+
+.auth-error {
+  padding: 0.75rem 1rem;
+  background-color: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  color: #c33;
+  font-size: 0.875rem;
+}
+
+.auth-success {
+  padding: 0.75rem 1rem;
+  background-color: #efe;
+  border: 1px solid #cfc;
+  border-radius: 8px;
+  color: #363;
+  font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 1.5rem;
+  }
+  
+  .auth-title {
+    font-size: 1.5rem;
+  }
+}

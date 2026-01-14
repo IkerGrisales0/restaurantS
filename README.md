@@ -1,78 +1,166 @@
- # Sistema de Reservas de Restaurantes - Requerimientos
+# Plataforma de Reservas de Restaurantes
 
-## Perspectiva del Usuario
+Una aplicación moderna de reservas de restaurantes construida con **React + Vite + TypeScript**.
 
-##  USUARIO CLIENTE
+## 📁 Estructura del Proyecto
 
-### 1. Búsqueda y Descubrimiento
+```
+/src/
+  ├── app/
+  │   ├── data/
+  │   │   └── restaurants.ts          # Base de datos de restaurantes
+  │   ├── components/
+  │   │   ├── Navbar.tsx              # Barra de navegación superior
+  │   │   ├── HeroSection.tsx         # Sección principal con búsqueda
+  │   │   ├── Features.tsx            # Características destacadas
+  │   │   ├── FilterBar.tsx           # Barra de filtros
+  │   │   ├── FilterPanel.tsx         # Panel de filtros avanzados
+  │   │   ├── RestaurantGrid.tsx      # Grid de restaurantes
+  │   │   ├── RestaurantCard.tsx      # Tarjeta individual de restaurante
+  │   │   ├── RestaurantDetail.tsx    # Vista detallada del restaurante
+  │   │   ├── BookingModal.tsx        # Modal de reserva
+  │   │   ├── Login.tsx               # Página de login
+  │   │   └── Register.tsx            # Página de registro
+  │   └── App.tsx                     # Componente principal
+  └── styles/
+      ├── global.css                  # Estilos globales base
+      ├── theme.css                   # Variables CSS y tema
+      ├── navbar.css
+      ├── hero.css
+      ├── features.css
+      ├── filter-bar.css
+      ├── filter-panel.css
+      ├── restaurant-grid.css
+      ├── restaurant-card.css
+      ├── restaurant-detail.css
+      ├── modal.css
+      └── auth.css
 
-*Como cliente quiero:*
+/public/images/restaurants/           # Carpeta para imágenes
+  ├── trattoria/
+  │   ├── main.jpg                   # Imagen principal
+  │   ├── 1.jpg                      # Imagen galería 1
+  │   ├── 2.jpg                      # Imagen galería 2
+  │   ├── 3.jpg                      # Imagen galería 3
+  │   ├── 4.jpg                      # Imagen galería 4
+  │   └── 5.jpg                      # Imagen galería 5
+  ├── sakura/
+  ├── mexicano/
+  ├── prime/
+  ├── green/
+  └── bistrot/
+```
 
-- Poder buscar restaurantes por nombre, ubicación o tipo de comida
-- Ver restaurantes disponibles cerca de mí
-- Filtrar por precio, rating o características (terraza, wifi, etc.)
+## 🎨 Características
 
+- ✅ **React 18** con Vite
+- ✅ **TypeScript** completo
+- ✅ **CSS tradicional** (sin Tailwind - por petición expresa)
+- ✅ **Variables simples y básicas**
+- ✅ **Diseño limpio y moderno**
+- ✅ **Responsive design**
+- ✅ **Sistema de filtros avanzado**
+- ✅ **Búsqueda en tiempo real**
+- ✅ **Modal de reservas con horarios alternativos**
+- ✅ **Vista detallada de restaurantes (página completa, no modal)**
+- ✅ **Galería de imágenes con navegación**
+- ✅ **Completamente en español**
 
-### 2.0 . Momento de hacer click- landing del restaurante
-- Ver fotos del restaurante y ambiente
+## 🖼️ Cómo Agregar Imágenes
 
+### 1. Crear carpeta para el restaurante:
+- Ve a `/public/images/restaurants/`
+- Crea una carpeta con el nombre del restaurante (sin espacios, minúsculas)
+- Ejemplo: `trattoria`, `sakura`, `mexicano`
 
-### 3. Proceso de Reserva
+### 2. Agregar imágenes:
+Coloca 6 imágenes en la carpeta:
+- `main.jpg` - Imagen principal (se muestra en la tarjeta del grid)
+- `1.jpg` a `5.jpg` - Galería de imágenes (se ven en el detalle)
 
-*Como cliente quiero:*
-- Quiero ver un stepper
-- Seleccionar fecha y hora para mi reserva
-- Especificar número de personas
-- Ver disponibilidad en tiempo real-nice to have
-- Recibir sugerencias de horarios alternativos si mi primera opción no está disponible
-- Poder hacer la reserva en menos de 2 minutos
+### 3. Formatos recomendados:
+- Formato: JPG o PNG
+- Tamaño recomendado: 1080x720px
+- Peso: menos de 500KB por imagen
 
+## 📝 Cómo Agregar un Nuevo Restaurante
 
-### 4. Gestión de Mis Reservas
+Edita el archivo `/src/app/data/restaurants.ts`:
 
-*Como cliente quiero:*
+```typescript
+{
+  id: "7",                                    // ID único
+  name: "Nombre del Restaurante",            // Nombre
+  cuisine: "Tipo de Cocina",                 // Italiana, Japonesa, etc.
+  city: "Ciudad",                            // Madrid, Barcelona, etc.
+  address: "Dirección completa",             // Dirección
+  price: 3,                                  // 1-4 ($ a $$$$)
+  mainImage: "/images/restaurants/carpeta/main.jpg",
+  images: [
+    "/images/restaurants/carpeta/1.jpg",
+    "/images/restaurants/carpeta/2.jpg",
+    "/images/restaurants/carpeta/3.jpg",
+    "/images/restaurants/carpeta/4.jpg",
+    "/images/restaurants/carpeta/5.jpg"
+  ],
+  description: "Descripción del restaurante",
+  hours: {
+    "Lunes-Viernes": "13:00 - 16:00, 20:00 - 23:00",
+    "Sábado-Domingo": "13:00 - 00:00"
+  },
+  amenities: {
+    terrace: true,      // ¿Tiene terraza?
+    wifi: true,         // ¿Tiene WiFi?
+    petFriendly: false  // ¿Acepta mascotas?
+  }
+}
+```
 
-- Ver todas mis reservas futuras y pasadas
-- Recibir recordatorio 24 horas antes de mi reserva
-- Poder cancelar o modificar mi reserva fácilmente
-- Recibir confirmación inmediata al hacer/modificar/cancelar
+## 🎯 Variables Principales
 
+### En `restaurants.ts`:
+- `restaurants` - Lista de todos los restaurantes
+- `price` - Rango de precio (1-4)
+- `amenities` - Comodidades del restaurante
 
-### 5. Experiencia Post-Visita-nice to have
+### En `App.tsx`:
+- `currentPage` - Página actual ('home' | 'login' | 'register' | 'restaurant')
+- `search` - Texto de búsqueda
+- `filters` - Filtros activos (precio, comodidades)
+- `selectedRestaurant` - Restaurante seleccionado
+- `showBooking` - Mostrar modal de reserva
 
-*Como cliente quiero:*
+### En componentes:
+- `restaurant` - Datos del restaurante
+- `onClick` - Acción al hacer clic
+- `onClose` - Acción al cerrar
+- `onConfirm` - Acción al confirmar
 
-- Poder calificar el restaurante y dejar comentarios
-- Ver mi historial de restaurantes visitados
-- Recibir ofertas especiales de mis restaurantes favoritos
+## 🚀 Navegación de la App
 
+1. **Página Home**: Hero + Features + Filtros + Grid de restaurantes
+2. **Página Restaurant**: Vista completa del restaurante (NO modal)
+3. **Click en tarjeta**: Navega a la página del restaurante
+4. **Click en logo**: Vuelve al home
+5. **Botón X en detalle**: Vuelve al home
 
-## USUARIO RESTAURANTE
+## 💡 Consejos
 
-### 1. Gestión de Reservas
+- Usa nombres de carpetas simples para las imágenes (sin espacios, todo minúsculas)
+- Las rutas de imágenes siempre empiezan con `/images/restaurants/`
+- Para agregar un nuevo tipo de cocina, solo agrégalo en un nuevo restaurante
+- Los filtros se actualizan automáticamente según los restaurantes disponibles
+- No uses Tailwind - todo está en CSS tradicional
+- Variables con nombres básicos y simples
 
-*Como restaurante quiero:*
+## 📚 Tecnologías
 
-- Ver todas las reservas del día en una vista clara
-- Poder confirmar, rechazar o modificar reservas-notificar al usuario 
-- Recibir notificaciones de nuevas reservas
-- Hacer reservas manuales para clientes que llaman-nice to have
+- **Vite** - Build tool rápido
+- **React 18** - Library UI
+- **TypeScript** - Tipado estático
+- **Lucide React** - Iconos modernos
+- **CSS puro** - Sin frameworks de CSS
 
+---
 
-### 2. Configuración del Restaurante
-
-*Como restaurante quiero:*
-
-- Configurar horarios de apertura y cierre
-- Definir capacidad máxima por turno-nice to have
-- Establecer tiempos de duración de reservas
-- Gestionar días festivos o cierres especiales
-
-
-### 3. Panel de Control-nice to have
-
-*Como restaurante quiero:*
-
-- Ver métricas de ocupación y rendimiento-
-- Analizar horarios más populares
-- Gestionar información del perfil (menú, fotos, descripción)
+✨ **Plataforma completamente funcional y lista para usar**

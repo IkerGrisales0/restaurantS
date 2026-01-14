@@ -1,0 +1,278 @@
+.restaurant-detail {
+  background-color: var(--color-white);
+  min-height: 100vh;
+}
+
+.restaurant-detail-hero {
+  position: relative;
+  min-height: 400px;
+  height: 60vh;
+  max-height: 600px;
+}
+
+.restaurant-detail-hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.restaurant-detail-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--color-neutral-900), rgba(23, 23, 23, 0.5), transparent);
+}
+
+.restaurant-detail-hero-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--border-radius-full);
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  color: var(--color-white);
+  transition: background-color 0.2s;
+}
+
+.restaurant-detail-hero-nav-btn:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.restaurant-detail-hero-nav-btn.prev {
+  left: 1rem;
+}
+
+.restaurant-detail-hero-nav-btn.next {
+  right: 1rem;
+}
+
+.restaurant-detail-hero-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.restaurant-detail-hero-close,
+.restaurant-detail-hero-favorite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-full);
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  color: var(--color-white);
+  transition: background-color 0.2s;
+}
+
+.restaurant-detail-hero-close:hover,
+.restaurant-detail-hero-favorite:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.restaurant-detail-hero-favorite.active {
+  color: var(--color-red);
+}
+
+.restaurant-detail-hero-counter {
+  position: absolute;
+  right: 1rem;
+  top: 5rem;
+  padding: 0.375rem 0.75rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  border-radius: var(--border-radius-full);
+  font-size: 0.875rem;
+  color: var(--color-white);
+}
+
+.restaurant-detail-hero-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  color: var(--color-white);
+}
+
+.restaurant-detail-hero-name {
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.restaurant-detail-hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.restaurant-detail-hero-badge {
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  border-radius: var(--border-radius-full);
+  font-size: 0.875rem;
+}
+
+.restaurant-detail-thumbnails {
+  background-color: var(--color-neutral-900);
+  padding: 1rem 1.5rem;
+}
+
+.restaurant-detail-thumbnails-wrapper {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.restaurant-detail-thumbnail {
+  position: relative;
+  width: 112px;
+  height: 80px;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  transition: all 0.2s;
+  opacity: 0.6;
+}
+
+.restaurant-detail-thumbnail:hover {
+  opacity: 1;
+}
+
+.restaurant-detail-thumbnail.active {
+  opacity: 1;
+  outline: 2px solid var(--color-white);
+}
+
+.restaurant-detail-thumbnail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.restaurant-detail-content {
+  background-color: var(--color-neutral-900);
+  padding: 1.5rem 1.5rem 8rem;
+  color: var(--color-white);
+}
+
+.restaurant-detail-description {
+  margin-bottom: 1.5rem;
+}
+
+.restaurant-detail-description-text {
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.restaurant-detail-info {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.restaurant-detail-info-card {
+  padding: 1rem;
+  background-color: rgba(38, 38, 38, 0.5);
+  border-radius: var(--border-radius-lg);
+}
+
+.restaurant-detail-info-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.restaurant-detail-info-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-amber);
+}
+
+.restaurant-detail-info-text {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.restaurant-detail-info-hours {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+}
+
+.restaurant-detail-info-hours-day {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.restaurant-detail-info-hours-time {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.restaurant-detail-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.restaurant-detail-stat {
+  padding: 1rem;
+  background-color: rgba(38, 38, 38, 0.5);
+  border-radius: var(--border-radius-lg);
+  text-align: center;
+}
+
+.restaurant-detail-stat-value {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.restaurant-detail-stat-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.restaurant-detail-booking {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, var(--color-neutral-900), var(--color-neutral-900), transparent);
+  padding: 1.5rem;
+}
+
+.restaurant-detail-booking-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--color-white);
+  color: var(--color-neutral-900);
+  font-weight: 500;
+  border-radius: var(--border-radius-full);
+  transition: background-color 0.2s;
+}
+
+.restaurant-detail-booking-btn:hover {
+  background-color: var(--color-neutral-100);
+}
+
+@media (min-width: 768px) {
+  .restaurant-detail-info {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
