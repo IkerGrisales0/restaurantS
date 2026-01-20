@@ -1,6 +1,6 @@
 import { MapPin } from "lucide-react";
-import type { Restaurant } from "../data/restaurants";
-import { ImageWithFallback } from "./ImageWithFallback";
+import type { Restaurant } from "../common/restaurants";
+import { ImageWithFallback } from "../common/ImageWithFallback";
 
 interface RestaurantCardProps {
   restaurant: Restaurant;

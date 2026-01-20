@@ -1,4 +1,24 @@
- # Sistema de Reservas de Restaurantes - Requerimientos
+ # Sistema de Reservas de Restaurantes
+
+## 🏗️ Arquitectura del Proyecto
+
+Este proyecto utiliza **Screaming Architecture**, que significa que la estructura de carpetas refleja las funcionalidades de la aplicación, no los tipos de archivos.
+
+Ver [SCREAMING_ARCHITECTURE.md](./SCREAMING_ARCHITECTURE.md) para una guía completa de la estructura.
+
+**Características principales:**
+- `features/authentication/` - Autenticación y registro
+- `features/restaurant-discovery/` - Búsqueda y filtrados de restaurantes
+- `features/restaurant-detail/` - Detalles de restaurante y reservas
+- `features/restaurant-setup/` - Configuración de restaurantes por administradores
+- `features/shared/` - Componentes compartidos (Navbar, Hero, etc.)
+- `features/common/` - Utilidades comunes (Modal, datos, etc.)
+
+---
+
+## Requerimientos
+
+## # Sistema de Reservas de Restaurantes - Requerimientos
 
 ## Perspectiva del Usuario
 
@@ -77,48 +97,3 @@
 - Analizar horarios más populares
 - Gestionar información del perfil (menú, fotos, descripción)
   
-estructura del proyecto
-/src/
-  ├── app/
-  │   ├── data/
-  │   │   └── restaurants.ts          # Base de datos de restaurantes
-  │   ├── components/
-  │   │   ├── Navbar.tsx              # Barra de navegación superior
-  │   │   ├── HeroSection.tsx         # Sección principal con búsqueda
-  │   │   ├── Features.tsx            # Características destacadas
-  │   │   ├── FilterBar.tsx           # Barra de filtros
-  │   │   ├── FilterPanel.tsx         # Panel de filtros avanzados
-  │   │   ├── RestaurantGrid.tsx      # Grid de restaurantes
-  │   │   ├── RestaurantCard.tsx      # Tarjeta individual de restaurante
-  │   │   ├── RestaurantDetail.tsx    # Vista detallada del restaurante
-  │   │   ├── BookingModal.tsx        # Modal de reserva
-  │   │   ├── Login.tsx               # Página de login
-  │   │   └── Register.tsx            # Página de registro
-  │   └── App.tsx                     # Componente principal
-  └── styles/
-      ├── global.css                  # Estilos globales base
-      ├── theme.css                   # Variables CSS y tema
-      ├── navbar.css
-      ├── hero.css
-      ├── features.css
-      ├── filter-bar.css
-      ├── filter-panel.css
-      ├── restaurant-grid.css
-      ├── restaurant-card.css
-      ├── restaurant-detail.css
-      ├── modal.css
-      └── auth.css
-
-/public/images/restaurants/           # Carpeta para imágenes
-  ├── trattoria/
-  │   ├── main.jpg                   # Imagen principal
-  │   ├── 1.jpg                      # Imagen galería 1
-  │   ├── 2.jpg                      # Imagen galería 2
-  │   ├── 3.jpg                      # Imagen galería 3
-  │   ├── 4.jpg                      # Imagen galería 4
-  │   └── 5.jpg                      # Imagen galería 5
-  ├── sakura/
-  ├── mexicano/
-  ├── prime/
-  ├── green/
-  └── bistrot/

@@ -1,31 +1,55 @@
 import '../styles/global.css';
-import '../styles/navbar.css';
-import '../styles/hero.css';
-import '../styles/features.css';
-import '../styles/filter-bar.css';
-import '../styles/restaurant-grid.css';
-import '../styles/restaurant-card.css';
-import '../styles/restaurant-detail.css';
-import '../styles/modal.css';
-import '../styles/filter-panel.css';
-import '../styles/footer.css';
-import '../styles/auth.css';
+
+// Features - Shared
+import '../features/shared/navbar.css';
+import '../features/shared/hero.css';
+import '../features/shared/features.css';
+
+// Features - Authentication
+import '../features/authentication/auth.css';
+
+// Features - Restaurant Discovery
+import '../features/restaurant-discovery/filter-bar.css';
+import '../features/restaurant-discovery/restaurant-grid.css';
+import '../features/restaurant-discovery/restaurant-card.css';
+import '../features/restaurant-discovery/filter-panel.css';
+
+// Features - Restaurant Detail
+import '../features/restaurant-detail/restaurant-detail.css';
+
+// Features - Common
+import '../features/common/modal.css';
+
+// Features - Restaurant Setup
+import '../features/restaurant-setup/restaurant-setup.css';
 
 import { useState, useMemo } from "react";
-import { Navbar } from "./components/Navbar";
-import { HeroSection } from "./components/HeroSection";
-import { Features } from "./components/Features";
-import { FilterBar } from "./components/FilterBar";
-import { RestaurantGrid } from "./components/RestaurantGrid";
-import { BookingModal, type BookingData } from "./components/BookingModal";
-import type { Filters } from "./components/FilterPanel";
-import { restaurants, type Restaurant } from "./data/restaurants";
+import {
+  Navbar,
+  HeroSection,
+  Features,
+} from "../features/shared";
 
-// Pages
-import { RestaurantDetail } from "./pages/RestaurantDetail";
-import { AuthPage } from "./pages/Auth";
+import {
+  FilterBar,
+  RestaurantGrid,
+  type Filters,
+} from "../features/restaurant-discovery";
 
-type Page = 'home' | 'auth' | 'restaurant';
+import { RestaurantDetail } from "../features/restaurant-detail";
+
+import { AuthPage } from "../features/authentication";
+
+import { RestaurantSetup } from "../features/restaurant-setup";
+
+import {
+  BookingModal,
+  type BookingData,
+  restaurants,
+  type Restaurant,
+} from "../features/common";
+
+type Page = 'home' | 'auth' | 'restaurant' | 'restaurant-setup';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -136,6 +160,16 @@ export default function App() {
       {currentPage === 'auth' && (
         <AuthPage 
           onBackToHome={() => setCurrentPage('home')}
+          onCompleteSetup={() => setCurrentPage('restaurant-setup')}
+        />
+      )}
+      {currentPage === 'restaurant-setup' && (
+        <RestaurantSetup
+          onComplete={(data) => {
+            console.log('Datos del restaurante:', data);
+            setCurrentPage('home');
+          }}
+          onCancel={() => setCurrentPage('home')}
         />
       )}
     </>
