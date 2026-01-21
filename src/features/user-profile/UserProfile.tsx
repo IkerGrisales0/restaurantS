@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Swal from "sweetalert2";
 
-// Schema de validación
 const userProfileSchema = z.object({
   name: z.string().min(1, "El nombre es requerido"),
   phone: z.string().min(1, "El teléfono es requerido"),
@@ -38,7 +37,6 @@ export function UserProfile({ email, name, phone, onComplete }: UserProfileProps
 
   const onSubmit = async (data: UserProfileData) => {
     try {
-      // Aquí se podría guardar información adicional del usuario
       console.log("Perfil de usuario completado:", data);
 
       await Swal.fire({
@@ -75,7 +73,6 @@ export function UserProfile({ email, name, phone, onComplete }: UserProfileProps
 
         <div className="user-profile-card">
           <form className="user-profile-form" onSubmit={handleSubmit(onSubmit)}>
-            {/* Email (solo lectura) */}
             <div className="user-profile-field">
               <label className="user-profile-label" htmlFor="email">
                 <Mail size={16} />
@@ -90,7 +87,6 @@ export function UserProfile({ email, name, phone, onComplete }: UserProfileProps
               />
             </div>
 
-            {/* Nombre */}
             <div className="user-profile-field">
               <label className="user-profile-label" htmlFor="name">
                 <User size={16} />
@@ -111,7 +107,6 @@ export function UserProfile({ email, name, phone, onComplete }: UserProfileProps
               )}
             </div>
 
-            {/* Teléfono */}
             <div className="user-profile-field">
               <label className="user-profile-label" htmlFor="phone">
                 <Phone size={16} />
@@ -132,7 +127,6 @@ export function UserProfile({ email, name, phone, onComplete }: UserProfileProps
               )}
             </div>
 
-            {/* Dirección (opcional) */}
             <div className="user-profile-field">
               <label className="user-profile-label" htmlFor="address">
                 <MapPin size={16} />
@@ -147,7 +141,6 @@ export function UserProfile({ email, name, phone, onComplete }: UserProfileProps
               />
             </div>
 
-            {/* Preferencias (opcional) */}
             <div className="user-profile-field">
               <label className="user-profile-label" htmlFor="preferences">
                 Preferencias alimentarias (opcional)

@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { authApi } from "../../services/api";
 
-// Schema de validación con Zod
 const registerSchema = z
   .object({
     name: z
@@ -55,7 +54,6 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
     resolver: zodResolver(registerSchema),
   });
 
-  // useEffect para limpiar errores cuando el usuario empieza a escribir
   useEffect(() => {
     if (registrationError) {
       setRegistrationError(null);
@@ -66,10 +64,8 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
     try {
       setRegistrationError(null);
 
-        // Forzar rol según la pestaña seleccionada
         const role = roleTab;
 
-        // Validación adicional: dirección requerida para restaurantes
         if (role === 'restaurant' && (!data.address || !data.address.trim())) {
           await Swal.fire({
             title: "Falta la dirección",
@@ -81,7 +77,6 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
           return;
         }
 
-        // Registrar usuario en el backend (si restaurante, enviar datos mínimos)
         const response = await authApi.register({
           email: data.email,
           password: data.password,
@@ -95,7 +90,6 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
           throw new Error(response.error || "Error al crear la cuenta");
         }
 
-        // Mostrar alerta de éxito
         await Swal.fire({
           title: "¡Cuenta creada!",
           text: "Tu cuenta ha sido creada exitosamente. Por favor inicia sesión.",
@@ -105,7 +99,6 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
           timer: 3000,
         });
 
-        // Volver a la vista de login sin auto-login
         reset();
         navigate('/auth/login');
     } catch (error) {
@@ -141,7 +134,6 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
           )}
 
           <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
-            {/* Tabs para seleccionar tipo de cuenta */}
             <div className="auth-tabs">
               <button
                 type="button"
@@ -159,7 +151,6 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
               </button>
             </div>
 
-            {/* Campo: Nombre */}
             <div className="auth-field">
               <label className="auth-label" htmlFor="name">
                 {roleTab === 'restaurant' ? 'Nombre del restaurante' : 'Nombre completo'}
@@ -182,7 +173,6 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
               )}
             </div>
 
-            {/* Campo: Email */}
             <div className="auth-field">
               <label className="auth-label" htmlFor="email">
                 Email
@@ -205,7 +195,6 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
               )}
             </div>
 
-            {/* Campo: Teléfono */}
             <div className="auth-field">
               <label className="auth-label" htmlFor="phone">
                 Teléfono
@@ -228,7 +217,6 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
               )}
             </div>
 
-            {/* Campo: Dirección (solo restaurante) */}
             {roleTab === 'restaurant' && (
               <div className="auth-field">
                 <label className="auth-label" htmlFor="address">
@@ -253,7 +241,6 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
               </div>
             )}
 
-            {/* Campo: Contraseña */}
             <div className="auth-field">
               <label className="auth-label" htmlFor="password">
                 Contraseña
@@ -276,7 +263,6 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
               )}
             </div>
 
-            {/* Campo: Confirmar Contraseña */}
             <div className="auth-field">
               <label className="auth-label" htmlFor="confirmPassword">
                 Confirmar contraseña

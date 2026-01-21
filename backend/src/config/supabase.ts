@@ -8,10 +8,8 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Falta configurar VITE_SUPABASE_URL y VITE_SUPABASE_KEY en .env');
 }
 
-// Cliente público (con limitaciones RLS)
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-// Cliente admin (bypass RLS - solo para operaciones del lado del servidor)
 export const supabaseAdmin = supabaseServiceKey 
   ? createClient(supabaseUrl, supabaseServiceKey) 
   : supabase;

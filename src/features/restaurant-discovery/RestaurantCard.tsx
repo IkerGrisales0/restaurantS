@@ -8,7 +8,6 @@ interface RestaurantCardProps {
 }
 
 export function RestaurantCard({ restaurant, onClick }: RestaurantCardProps) {
-  // Adaptar los datos del backend a la interfaz esperada
   const cuisineType = (restaurant as any).cuisine_type || restaurant.cuisine || 'Comida internacional';
   const imageUrl = (restaurant as any).image_url || restaurant.mainImage || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4';
   const averagePrice = (restaurant as any).average_price || restaurant.price || 2;

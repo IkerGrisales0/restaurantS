@@ -1,4 +1,3 @@
-// Restaurant Discovery exports
 export { FilterBar } from './FilterBar';
 export { FilterPanel } from './FilterPanel';
 export type { Filters } from './FilterPanel';

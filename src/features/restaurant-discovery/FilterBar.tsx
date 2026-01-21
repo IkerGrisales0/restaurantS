@@ -38,7 +38,6 @@ export function FilterBar({ filters, onChange, cuisines }: FilterBarProps) {
         <span className="filter-bar-label">Filtrar:</span>
         
         <div className="filter-bar-filters" ref={dropdownRef}>
-          {/* Cuisine Filter */}
           <div className="filter-dropdown">
             <button
               onClick={() => setOpenDropdown(openDropdown === "cuisine" ? null : "cuisine")}
@@ -76,7 +75,6 @@ export function FilterBar({ filters, onChange, cuisines }: FilterBarProps) {
             )}
           </div>
 
-          {/* Price Filter */}
           <div className="filter-dropdown">
             <button
               onClick={() => setOpenDropdown(openDropdown === "price" ? null : "price")}

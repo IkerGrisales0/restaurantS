@@ -117,14 +117,12 @@ export function RestaurantSetup({ onComplete, onCancel, initialData }: Restauran
           throw new Error("No hay sesión activa");
         }
 
-        // Obtener restaurante del usuario
         const restaurantData = await restaurantApi.getMyRestaurant();
         
         if (!restaurantData || !restaurantData.id) {
           throw new Error("No se encontró el restaurante");
         }
 
-        // Extraer horarios correctamente
         const opening = form.openingTime.substring(0, 5);
         const closing = form.closingTime.substring(0, 5);
 
@@ -136,7 +134,6 @@ export function RestaurantSetup({ onComplete, onCancel, initialData }: Restauran
           average_price: form.price * 25,
         });
 
-        // Actualizar datos en la BD
         await restaurantApi.updateRestaurant(
           restaurantData.id,
           {
@@ -206,7 +203,6 @@ export function RestaurantSetup({ onComplete, onCancel, initialData }: Restauran
         </div>
 
         <div className="setup-card">
-          {/* PASO 1: Información Básica */}
           {currentStep === 1 && (
             <div className="setup-form">
               <h2 className="form-section-title">Información Básica</h2>
@@ -308,7 +304,6 @@ export function RestaurantSetup({ onComplete, onCancel, initialData }: Restauran
             </div>
           )}
 
-          {/* PASO 2: Descripción y Horarios */}
           {currentStep === 2 && (
             <div className="setup-form">
               <h2 className="form-section-title">Descripción y Horarios</h2>
@@ -367,7 +362,6 @@ export function RestaurantSetup({ onComplete, onCancel, initialData }: Restauran
             </div>
           )}
 
-          {/* PASO 3: Amenidades */}
           {currentStep === 3 && (
             <div className="setup-form">
               <h2 className="form-section-title">Amenidades y Características</h2>

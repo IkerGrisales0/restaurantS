@@ -3,7 +3,6 @@ import { DiscoveryService, type DiscoveryFilters } from '../services/DiscoverySe
 import type { ApiResponse, Restaurant } from '../../../common/types/index';
 
 export class DiscoveryController {
-  // Obtener todos los restaurantes
   static async getAll(req: Request, res: Response): Promise<void> {
     try {
       const filters: DiscoveryFilters = {
@@ -35,7 +34,6 @@ export class DiscoveryController {
     }
   }
 
-  // Buscar restaurantes con filtros
   static async search(req: Request, res: Response): Promise<void> {
     try {
       const filters: DiscoveryFilters = {
@@ -63,7 +61,6 @@ export class DiscoveryController {
     }
   }
 
-  // Obtener restaurantes relacionados
   static async getRelated(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
@@ -83,7 +80,6 @@ export class DiscoveryController {
     }
   }
 
-  // Obtener restaurantes populares
   static async getPopular(req: Request, res: Response): Promise<void> {
     try {
       const limit = req.query.limit ? parseInt(req.query.limit as string) : 6;

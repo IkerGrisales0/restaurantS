@@ -27,14 +27,12 @@ export function ProtectedRoute({
         return;
       }
 
-      // Verificar rol si es requerido
       if (requiredRole && role !== requiredRole) {
         setRedirectTo('/');
         setIsAuthorized(false);
         return;
       }
 
-      // Verificar setup de restaurante si es requerido
       if (requiredSetup !== undefined && role === 'restaurant') {
         try {
           const restaurant = await restaurantApi.getMyRestaurant();
@@ -54,7 +52,6 @@ export function ProtectedRoute({
             return;
           }
         } catch (error) {
-          // Si falla, dirigir a setup si se requiere incompleto, o a home
           setRedirectTo(requiredSetup ? '/restaurant-setup' : '/');
           setIsAuthorized(false);
           return;

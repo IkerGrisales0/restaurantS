@@ -1,10 +1,8 @@
-/* Restaurant Detail Page */
 .restaurant-detail-page {
   min-height: 100vh;
   background: var(--color-neutral-50);
 }
 
-/* Header */
 .detail-header {
   background: var(--color-white);
   border-bottom: 1px solid var(--color-neutral-200);
@@ -34,7 +32,6 @@
   border-color: var(--color-neutral-300);
 }
 
-/* Container */
 .detail-container {
   max-width: 1280px;
   margin: 0 auto;
@@ -45,7 +42,6 @@
   align-items: start;
 }
 
-/* Image Section */
 .detail-image-section {
   position: sticky;
   top: 100px;
@@ -60,7 +56,6 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Content */
 .detail-content {
   background: var(--color-white);
   border-radius: var(--border-radius-lg);
@@ -73,7 +68,6 @@
   padding: 2rem;
 }
 
-/* Title Section */
 .detail-title-section {
   margin-bottom: 2rem;
   padding-bottom: 2rem;
@@ -109,7 +103,6 @@
   color: var(--color-neutral-700);
 }
 
-/* Description */
 .detail-section {
   margin-bottom: 2rem;
   padding-bottom: 2rem;
@@ -123,7 +116,6 @@
   margin: 0;
 }
 
-/* Info Grid */
 .detail-info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -174,7 +166,6 @@
   word-break: break-word;
 }
 
-/* Reserve Button */
 .detail-reserve-btn {
   width: 100%;
   padding: 1rem 2rem;
@@ -192,7 +183,7 @@
   background: var(--color-green-dark);
 }
 
-/* Responsive */
+
 @media (max-width: 1024px) {
   .detail-container {
     grid-template-columns: 1fr;

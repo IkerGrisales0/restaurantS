@@ -14,7 +14,6 @@ type AuthView = 'login' | 'register';
 export function AuthPage({ onBackToHome, onCompleteSetup, onLoginSuccess, initialMode = 'login' }: AuthPageProps) {
   const [view, setView] = useState<AuthView>(initialMode);
 
-  // Sync tab with route changes so /auth/login vs /auth/register reflects correctly
   useEffect(() => {
     setView(initialMode);
   }, [initialMode]);

@@ -52,7 +52,6 @@ export function FilterPanel({ filters, onChange, onClose, isOpen }: FilterPanelP
           </div>
 
           <div className="filter-panel-sections">
-            {/* Price range */}
             <div>
               <label className="filter-section-label">Rango de precio</label>
               <div className="filter-price-options">
@@ -88,7 +87,6 @@ export function FilterPanel({ filters, onChange, onClose, isOpen }: FilterPanelP
               </div>
             </div>
 
-            {/* Amenities */}
             <div>
               <label className="filter-section-label">Comodidades</label>
               <div className="filter-amenities">

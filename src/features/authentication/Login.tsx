@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { authApi } from "../../services/api";
 
-// Schema de validación con Zod
 const loginSchema = z.object({
   email: z
     .string()
@@ -53,7 +52,6 @@ export function Login({ onSwitchToRegister, onBackToHome, onLoginSuccess }: Logi
     try {
       setLoginError(null);
 
-      // Iniciar sesión en el backend
       const response = await authApi.login({
         email: data.email,
         password: data.password,
@@ -63,7 +61,6 @@ export function Login({ onSwitchToRegister, onBackToHome, onLoginSuccess }: Logi
         throw new Error(response.error || "Error al iniciar sesión");
       }
 
-      // Guardar token y rol en localStorage
       if (response.data?.session?.access_token) {
         localStorage.setItem("authToken", response.data.session.access_token);
       }
@@ -72,7 +69,7 @@ export function Login({ onSwitchToRegister, onBackToHome, onLoginSuccess }: Logi
         localStorage.setItem("userEmail", response.data.user.email || "");
       }
 
-      // Mostrar alerta de éxito
+
       await Swal.fire({
         title: "¡Bienvenido!",
         text: `Has iniciado sesión como ${response.data?.user?.email}`,
@@ -83,7 +80,6 @@ export function Login({ onSwitchToRegister, onBackToHome, onLoginSuccess }: Logi
       });
 
       reset();
-      // Pasar datos del usuario al callback
       const userData = {
         email: response.data?.user?.email || "",
         name: response.data?.user?.name || "",
@@ -131,7 +127,6 @@ export function Login({ onSwitchToRegister, onBackToHome, onLoginSuccess }: Logi
           )}
 
           <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
-            {/* Tabs para rol (visual) */}
             <div className="auth-tabs">
               <button
                 type="button"

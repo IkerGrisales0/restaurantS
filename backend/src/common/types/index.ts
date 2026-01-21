@@ -1,4 +1,3 @@
-// Tipos para autenticación
 export interface User {
   id: string;
   email: string;
@@ -17,7 +16,6 @@ export interface AuthResponse {
   };
 }
 
-// Tipos para restaurantes
 export interface Restaurant {
   id: string;
   owner_id: string;
@@ -55,7 +53,6 @@ export interface RestaurantAmenities {
   created_at: string;
 }
 
-// Tipos para reservas
 export interface Booking {
   id: string;
   restaurant_id: string;
@@ -69,7 +66,6 @@ export interface Booking {
   updated_at: string;
 }
 
-// Respuesta genérica de API
 export interface ApiResponse<T> {
   success: boolean;
   data?: T;

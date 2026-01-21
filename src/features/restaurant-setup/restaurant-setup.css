@@ -54,7 +54,6 @@
   line-height: 1.5;
 }
 
-/* Progress Indicator */
 .setup-progress {
   display: flex;
   align-items: center;
@@ -103,7 +102,6 @@
   margin-top: -24px;
 }
 
-/* Setup Card */
 .setup-card {
   background-color: var(--color-white);
   border-radius: 16px;
@@ -195,7 +193,6 @@
   margin-top: 0.25rem;
 }
 
-/* Price Selector */
 .price-selector {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -262,7 +259,6 @@
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* Hours Input */
 .hours-input-group {
   display: flex;
   flex-direction: column;
@@ -283,7 +279,6 @@
   font-size: 0.875rem;
 }
 
-/* Amenities Grid */
 .amenities-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -353,7 +348,6 @@
   color: var(--color-neutral-600);
 }
 
-/* Setup Info Box */
 .setup-info {
   display: flex;
   gap: 1rem;
@@ -373,7 +367,6 @@
   line-height: 1.5;
 }
 
-/* Setup Buttons */
 .setup-buttons {
   display: flex;
   gap: 1rem;
@@ -423,7 +416,6 @@
   border-color: var(--color-neutral-400);
 }
 
-/* Responsive */
 @media (max-width: 640px) {
   .setup-card {
     padding: 1.5rem;

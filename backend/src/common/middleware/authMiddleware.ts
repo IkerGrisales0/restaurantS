@@ -22,9 +22,8 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
       return;
     }
 
-    const token = authHeader.substring(7); // Quitar "Bearer "
+    const token = authHeader.substring(7); 
 
-    // Verificar el token con Supabase
     const { data, error } = await supabase.auth.getUser(token);
 
     if (error || !data.user) {
@@ -35,7 +34,6 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
       return;
     }
 
-    // Pasar el userId al request
     (req as any).userId = data.user.id;
     (req as any).userEmail = data.user.email;
 

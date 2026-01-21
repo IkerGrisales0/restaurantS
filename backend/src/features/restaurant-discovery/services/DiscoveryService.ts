@@ -15,7 +15,6 @@ export interface DiscoveryFilters {
 }
 
 export class DiscoveryService {
-  // Obtener todos los restaurantes
   static async getAllRestaurants(filters?: DiscoveryFilters): Promise<Restaurant[]> {
     let query = supabase.from('restaurants').select('*');
 
@@ -47,23 +46,19 @@ export class DiscoveryService {
     return data || [];
   }
 
-  // Obtener restaurantes con filtros de amenidades
   static async searchRestaurants(filters: DiscoveryFilters): Promise<Restaurant[]> {
     let query = supabase
       .from('restaurants')
       .select('*');
 
-    // Aplicar búsqueda de texto
     if (filters.search) {
       query = query.or(`name.ilike.%${filters.search}%,description.ilike.%${filters.search}%`);
     }
 
-    // Aplicar filtros de rango de precio
     if (filters.priceRange) {
       query = query.gte('average_price', filters.priceRange[0]).lte('average_price', filters.priceRange[1]);
     }
 
-    // Aplicar filtro de tipo de cocina
     if (filters.cuisineType) {
       query = query.eq('cuisine_type', filters.cuisineType);
     }
@@ -72,7 +67,6 @@ export class DiscoveryService {
 
     if (error) throw new Error(error.message);
 
-    // Filtrar por amenidades si están presentes
     if (
       filters.wifi ||
       filters.parking ||
@@ -98,7 +92,6 @@ export class DiscoveryService {
     return data || [];
   }
 
-  // Obtener restaurantes relacionados
   static async getRelatedRestaurants(restaurantId: string, limit: number = 3): Promise<Restaurant[]> {
     const restaurant = await supabase
       .from('restaurants')
@@ -119,7 +112,6 @@ export class DiscoveryService {
     return data || [];
   }
 
-  // Obtener restaurantes recientes
   static async getPopularRestaurants(limit: number = 6): Promise<Restaurant[]> {
     const { data, error } = await supabase
       .from('restaurants')

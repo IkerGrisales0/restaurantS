@@ -10,7 +10,6 @@ CREATE TABLE public.users (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabla de restaurantes
 CREATE TABLE public.restaurants (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   owner_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
@@ -20,15 +19,14 @@ CREATE TABLE public.restaurants (
   phone VARCHAR(20),
   email VARCHAR(255),
   image_url TEXT,
-  opening_time VARCHAR(5),  -- Formato HH:MM
-  closing_time VARCHAR(5),  -- Formato HH:MM
+  opening_time VARCHAR(5),
+  closing_time VARCHAR(5),
   cuisine_type VARCHAR(100),
   average_price DECIMAL(10, 2),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabla de amenidades de restaurantes
 CREATE TABLE public.restaurant_amenities (
   restaurant_id UUID PRIMARY KEY REFERENCES public.restaurants(id) ON DELETE CASCADE,
   wifi BOOLEAN DEFAULT FALSE,
@@ -40,13 +38,12 @@ CREATE TABLE public.restaurant_amenities (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabla de reservas
 CREATE TABLE public.bookings (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   restaurant_id UUID NOT NULL REFERENCES public.restaurants(id) ON DELETE CASCADE,
   user_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
   date DATE NOT NULL,
-  time VARCHAR(5) NOT NULL,  -- Formato HH:MM
+  time VARCHAR(5) NOT NULL,
   guests INTEGER NOT NULL CHECK (guests > 0),
   special_requests TEXT,
   status VARCHAR(50) NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'cancelled')),
@@ -54,20 +51,17 @@ CREATE TABLE public.bookings (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Índices para mejorar performance
 CREATE INDEX idx_restaurants_owner_id ON public.restaurants(owner_id);
 CREATE INDEX idx_restaurants_cuisine_type ON public.restaurants(cuisine_type);
 CREATE INDEX idx_bookings_restaurant_id ON public.bookings(restaurant_id);
 CREATE INDEX idx_bookings_user_id ON public.bookings(user_id);
 CREATE INDEX idx_bookings_date ON public.bookings(date);
 
--- Row Level Security (RLS) - Seguridad
 ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.restaurants ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.restaurant_amenities ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.bookings ENABLE ROW LEVEL SECURITY;
 
--- Políticas de seguridad para usuarios
 CREATE POLICY "Users can view their own data"
   ON public.users
   FOR SELECT
@@ -88,7 +82,6 @@ CREATE POLICY "Users can delete their own data"
   FOR DELETE
   USING (auth.uid() = id);
 
--- Políticas de seguridad para restaurantes
 CREATE POLICY "Anyone can view restaurants"
   ON public.restaurants
   FOR SELECT
@@ -109,13 +102,11 @@ CREATE POLICY "Owners can delete their restaurants"
   FOR DELETE
   USING (auth.uid() = owner_id);
 
--- Políticas de seguridad para amenidades
 CREATE POLICY "Anyone can view amenities"
   ON public.restaurant_amenities
   FOR SELECT
   USING (true);
 
--- Políticas de seguridad para reservas
 CREATE POLICY "Users can view their own bookings"
   ON public.bookings
   FOR SELECT

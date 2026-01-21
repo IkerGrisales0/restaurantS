@@ -3,7 +3,6 @@ import { BookingService } from '../services/BookingService';
 import type { ApiResponse, Booking } from '../../../common/types/index';
 
 export class BookingController {
-  // Crear reserva
   static async create(req: Request, res: Response): Promise<void> {
     try {
       const userId = (req as any).userId;
@@ -31,7 +30,6 @@ export class BookingController {
     }
   }
 
-  // Obtener reserva por ID
   static async getById(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
@@ -49,7 +47,6 @@ export class BookingController {
     }
   }
 
-  // Obtener reservas del usuario
   static async getUserBookings(req: Request, res: Response): Promise<void> {
     try {
       const userId = (req as any).userId;
@@ -76,7 +73,6 @@ export class BookingController {
     }
   }
 
-  // Obtener reservas del restaurante
   static async getRestaurantBookings(req: Request, res: Response): Promise<void> {
     try {
       const { restaurantId } = req.params;
@@ -95,7 +91,6 @@ export class BookingController {
     }
   }
 
-  // Actualizar reserva
   static async update(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
@@ -115,7 +110,6 @@ export class BookingController {
     }
   }
 
-  // Cancelar reserva
   static async cancel(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
@@ -134,7 +128,6 @@ export class BookingController {
     }
   }
 
-  // Confirmar reserva
   static async confirm(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
@@ -153,7 +146,6 @@ export class BookingController {
     }
   }
 
-  // Obtener disponibilidad
   static async getAvailability(req: Request, res: Response): Promise<void> {
     try {
       const { restaurantId } = req.params;

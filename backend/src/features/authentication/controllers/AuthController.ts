@@ -3,7 +3,6 @@ import { AuthService } from '../services/AuthService';
 import type { ApiResponse } from '../../../common/types/index';
 
 export class AuthController {
-  // Endpoint para registrar
   static async register(req: Request, res: Response): Promise<void> {
     try {
       const { email, password, role, restaurantName, address, phone } = req.body;
@@ -35,7 +34,6 @@ export class AuthController {
     }
   }
 
-  // Endpoint para login
   static async login(req: Request, res: Response): Promise<void> {
     try {
       const { email, password } = req.body;
@@ -50,7 +48,6 @@ export class AuthController {
 
       const response = await AuthService.login(email, password);
 
-      // Si es restaurante, verificar si tiene setup completo
       if (response.user.role === 'restaurant') {
         const isSetupComplete = await AuthService.isRestaurantSetupComplete(response.user.id);
         const restaurant = await AuthService.getRestaurantForSetup(response.user.id);
@@ -77,7 +74,6 @@ export class AuthController {
     }
   }
 
-  // Endpoint para logout
   static async logout(req: Request, res: Response): Promise<void> {
     try {
       await AuthService.logout();
@@ -94,7 +90,6 @@ export class AuthController {
     }
   }
 
-  // Endpoint para obtener usuario actual
   static async getCurrentUser(req: Request, res: Response): Promise<void> {
     try {
       const user = await AuthService.getCurrentUser();

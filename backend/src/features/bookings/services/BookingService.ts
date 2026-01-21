@@ -2,7 +2,6 @@ import { supabase } from '../../../config/supabase';
 import type { Booking } from '../../../common/types/index';
 
 export class BookingService {
-  // Crear reserva
   static async createBooking(
     restaurantId: string,
     userId: string,
@@ -25,7 +24,6 @@ export class BookingService {
     return data;
   }
 
-  // Obtener reserva por ID
   static async getBookingById(id: string): Promise<Booking> {
     const { data, error } = await supabase
       .from('bookings')
@@ -37,7 +35,6 @@ export class BookingService {
     return data;
   }
 
-  // Obtener reservas del usuario
   static async getUserBookings(userId: string): Promise<Booking[]> {
     const { data, error } = await supabase
       .from('bookings')
@@ -49,7 +46,6 @@ export class BookingService {
     return data || [];
   }
 
-  // Obtener reservas del restaurante
   static async getRestaurantBookings(restaurantId: string): Promise<Booking[]> {
     const { data, error } = await supabase
       .from('bookings')
@@ -61,7 +57,6 @@ export class BookingService {
     return data || [];
   }
 
-  // Actualizar reserva
   static async updateBooking(id: string, updates: Partial<Booking>): Promise<Booking> {
     const { data, error } = await supabase
       .from('bookings')
@@ -74,17 +69,14 @@ export class BookingService {
     return data;
   }
 
-  // Cancelar reserva
   static async cancelBooking(id: string): Promise<Booking> {
     return this.updateBooking(id, { status: 'cancelled' });
   }
 
-  // Confirmar reserva
   static async confirmBooking(id: string): Promise<Booking> {
     return this.updateBooking(id, { status: 'confirmed' });
   }
 
-  // Obtener disponibilidad del restaurante
   static async getAvailability(restaurantId: string, date: string): Promise<string[]> {
     const { data: bookings, error } = await supabase
       .from('bookings')
@@ -95,14 +87,12 @@ export class BookingService {
 
     if (error) throw new Error(error.message);
 
-    // Generar slots disponibles (cada 30 minutos)
     const allSlots = this.generateTimeSlots();
     const bookedSlots = new Set(bookings?.map((b) => b.time) || []);
 
     return allSlots.filter((slot) => !bookedSlots.has(slot));
   }
 
-  // Helper: generar slots de tiempo
   private static generateTimeSlots(): string[] {
     const slots = [];
     for (let hour = 12; hour <= 23; hour++) {

@@ -1,11 +1,9 @@
-/* Dashboard Container */
 .dashboard-container {
   display: flex;
   min-height: 100vh;
   background-color: var(--color-neutral-50);
 }
 
-/* Sidebar */
 .dashboard-sidebar {
   width: 280px;
   background: var(--color-white);
@@ -95,7 +93,6 @@
   color: var(--color-red);
 }
 
-/* Main Content */
 .dashboard-main {
   flex: 1;
   margin-left: 280px;
@@ -109,7 +106,6 @@
   margin-left: 80px;
 }
 
-/* Header */
 .dashboard-main-header {
   background: var(--color-white);
   padding: 1.5rem 2rem;
@@ -145,7 +141,6 @@
   border-color: var(--color-neutral-300);
 }
 
-/* Stats Grid */
 .stats-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -213,13 +208,11 @@
   margin: 0;
 }
 
-/* Content Area */
 .dashboard-content-area {
   flex: 1;
   padding: 0 2rem 2rem;
 }
 
-/* Section Header */
 .section-header {
   display: flex;
   align-items: center;
@@ -234,7 +227,6 @@
   margin: 0;
 }
 
-/* Bookings Section */
 .bookings-section {
   background: var(--color-white);
   border-radius: var(--border-radius-lg);
@@ -266,7 +258,6 @@
   font-size: 0.9375rem;
 }
 
-/* Bookings Table */
 .bookings-table {
   overflow-x: auto;
 }
@@ -377,7 +368,7 @@
   color: var(--color-white);
 }
 
-/* Settings Section */
+
 .settings-section,
 .stats-section,
 .menu-section {
@@ -472,7 +463,6 @@
   color: var(--color-white);
 }
 
-/* Info Grid */
 .info-grid {
   display: grid;
   gap: 1rem;
@@ -513,7 +503,6 @@
   font-weight: 600;
 }
 
-/* Loading */
 .dashboard-loading {
   display: flex;
   flex-direction: column;
@@ -544,7 +533,7 @@
   font-size: 0.9375rem;
 }
 
-/* Empty State */
+
 .dashboard-empty {
   display: flex;
   flex-direction: column;
@@ -573,7 +562,7 @@
   margin: 0;
 }
 
-/* Responsive */
+
 @media (max-width: 1024px) {
   .dashboard-sidebar {
     transform: translateX(-100%);
@@ -641,7 +630,6 @@
   }
 }
 
-/* Modal de Edición */
 .edit-modal-overlay {
   position: fixed;
   inset: 0;
@@ -787,7 +775,6 @@
   object-fit: cover;
 }
 
-/* Restaurant Info */
 .restaurant-info {
   display: grid;
   gap: 1.5rem;
@@ -819,7 +806,6 @@
   margin: 0;
 }
 
-/* Bookings */
 .dashboard-bookings {
   display: grid;
   gap: 1.5rem;

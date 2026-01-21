@@ -2,7 +2,6 @@ import { supabase, supabaseAdmin } from '../../../config/supabase';
 import type { User, AuthResponse } from '../../../common/types/index';
 
 export class AuthService {
-  // Registrar nuevo usuario
   static async register(
     email: string,
     password: string,
@@ -18,7 +17,6 @@ export class AuthService {
 
     if (!data.user) throw new Error('Error al crear usuario');
 
-    // Guardar el usuario con todos sus datos usando supabaseAdmin para bypass RLS
     const { error: insertError } = await supabaseAdmin
       .from('users')
       .insert([{ 
@@ -32,7 +30,6 @@ export class AuthService {
 
     if (insertError) throw new Error(insertError.message);
 
-    // Si es restaurante y tenemos datos mínimos, crear el restaurante
     if (role === 'restaurant' && restaurantData?.name && restaurantData?.address) {
       const { error: restaurantInsertError } = await supabaseAdmin
         .from('restaurants')
@@ -66,7 +63,6 @@ export class AuthService {
     };
   }
 
-  // Login
   static async login(email: string, password: string): Promise<AuthResponse> {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -77,7 +73,7 @@ export class AuthService {
 
     if (!data.user) throw new Error('Error al iniciar sesión');
 
-    // Obtener el rol y datos del usuario
+
     const { data: userData, error: fetchError } = await supabase
       .from('users')
       .select('*')
@@ -103,13 +99,11 @@ export class AuthService {
     };
   }
 
-  // Logout
   static async logout(): Promise<void> {
     const { error } = await supabase.auth.signOut();
     if (error) throw new Error(error.message);
   }
 
-  // Obtener usuario actual
   static async getCurrentUser(): Promise<User | null> {
     const { data, error } = await supabase.auth.getUser();
 
@@ -129,7 +123,6 @@ export class AuthService {
     };
   }
 
-  // Verificar si el restaurante tiene setup completo
   static async isRestaurantSetupComplete(userId: string): Promise<boolean> {
     const { data: restaurant, error } = await supabase
       .from('restaurants')
@@ -139,7 +132,6 @@ export class AuthService {
 
     if (error || !restaurant) return false;
 
-    // Setup completo si tiene: cuisine_type, description, opening_time, closing_time
     return !!(
       restaurant.cuisine_type &&
       restaurant.description &&
@@ -148,7 +140,6 @@ export class AuthService {
     );
   }
 
-  // Obtener datos del restaurante incompleto (para pre-llenar setup)
   static async getRestaurantForSetup(userId: string): Promise<any> {
     const { data: restaurant, error } = await supabase
       .from('restaurants')

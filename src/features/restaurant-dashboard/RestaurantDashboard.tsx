@@ -71,9 +71,6 @@ export function RestaurantDashboard({ onLogout }: RestaurantDashboardProps) {
       setLoading(true);
       const restaurantData = await restaurantApi.getMyRestaurant();
       setRestaurant(restaurantData);
-      // TODO: Cargar reservas reales cuando el endpoint esté listo
-      // const bookingsData = await bookingApi.getRestaurantBookings();
-      // setBookings(bookingsData);
       setBookings([]);
     } catch (error) {
       console.error('Error al cargar datos:', error);
@@ -89,8 +86,6 @@ export function RestaurantDashboard({ onLogout }: RestaurantDashboardProps) {
 
   const handleConfirmBooking = async (bookingId: string) => {
     try {
-      // TODO: Llamar al API
-      // await bookingApi.confirmBooking(bookingId);
       
       await Swal.fire({
         title: "Reserva confirmada",
@@ -122,8 +117,6 @@ export function RestaurantDashboard({ onLogout }: RestaurantDashboardProps) {
 
     if (result.isConfirmed) {
       try {
-        // TODO: Llamar al API
-        // await bookingApi.cancelBooking(bookingId);
         
         await Swal.fire({
           title: "Reserva cancelada",
@@ -231,7 +224,6 @@ export function RestaurantDashboard({ onLogout }: RestaurantDashboardProps) {
 
   return (
     <div className="dashboard-container">
-      {/* Sidebar */}
       <aside className={`dashboard-sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
         <div className="sidebar-header">
           <Store size={28} />
@@ -277,9 +269,7 @@ export function RestaurantDashboard({ onLogout }: RestaurantDashboardProps) {
         </div>
       </aside>
 
-      {/* Main Content */}
       <main className="dashboard-main">
-        {/* Header */}
         <header className="dashboard-main-header">
           <h1>
             {activeTab === 'bookings' && 'Gestión de Reservas'}
@@ -295,7 +285,6 @@ export function RestaurantDashboard({ onLogout }: RestaurantDashboardProps) {
           </button>
         </header>
 
-        {/* Stats Cards */}
         <div className="stats-grid">
           <div className="stat-card">
             <div className="stat-icon reservas">
@@ -308,7 +297,6 @@ export function RestaurantDashboard({ onLogout }: RestaurantDashboardProps) {
           </div>
         </div>
 
-        {/* Content Area */}
         <div className="dashboard-content-area">
           {activeTab === 'bookings' && (
             <div className="bookings-section">
@@ -472,7 +460,6 @@ export function RestaurantDashboard({ onLogout }: RestaurantDashboardProps) {
         </div>
       </main>
 
-      {/* Modal de Edición */}
       {isEditing && editForm && (
         <div className="edit-modal-overlay" onClick={handleCancelEdit}>
           <div className="edit-modal" onClick={(e) => e.stopPropagation()}>

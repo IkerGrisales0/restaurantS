@@ -3,10 +3,9 @@ import { RestaurantService } from '../services/RestaurantService';
 import type { ApiResponse, Restaurant, RestaurantAmenities } from '../../../common/types/index';
 
 export class RestaurantController {
-  // Crear restaurante
   static async create(req: Request, res: Response): Promise<void> {
     try {
-      const ownerId = (req as any).userId; // Del middleware de autenticación
+      const ownerId = (req as any).userId;
       const restaurantData = req.body;
 
       if (!ownerId) {
@@ -31,7 +30,6 @@ export class RestaurantController {
     }
   }
 
-  // Obtener restaurante por ID
   static async getById(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
@@ -49,7 +47,6 @@ export class RestaurantController {
     }
   }
 
-  // Obtener restaurantes del propietario
   static async getByOwner(req: Request, res: Response): Promise<void> {
     try {
       const ownerId = (req as any).userId;
@@ -76,7 +73,6 @@ export class RestaurantController {
     }
   }
 
-  // Actualizar restaurante
   static async update(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
@@ -99,7 +95,6 @@ export class RestaurantController {
     }
   }
 
-  // Eliminar restaurante
   static async delete(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
@@ -118,7 +113,6 @@ export class RestaurantController {
     }
   }
 
-  // Agregar amenidades
   static async addAmenities(req: Request, res: Response): Promise<void> {
     try {
       const { restaurantId } = req.params;
@@ -138,7 +132,6 @@ export class RestaurantController {
     }
   }
 
-  // Obtener amenidades
   static async getAmenities(req: Request, res: Response): Promise<void> {
     try {
       const { restaurantId } = req.params;
@@ -157,7 +150,6 @@ export class RestaurantController {
     }
   }
 
-  // Actualizar amenidades
   static async updateAmenities(req: Request, res: Response): Promise<void> {
     try {
       const { restaurantId } = req.params;

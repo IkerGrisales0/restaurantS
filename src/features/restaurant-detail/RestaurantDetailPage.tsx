@@ -25,7 +25,6 @@ export function RestaurantDetail({ restaurant, onClose, onReserve }: RestaurantD
 
   return (
     <div className="restaurant-detail">
-      {/* Hero Image Gallery */}
       <div className="restaurant-detail-hero">
         <ImageWithFallback
           src={restaurant.images[currentIndex]}
@@ -35,7 +34,6 @@ export function RestaurantDetail({ restaurant, onClose, onReserve }: RestaurantD
         
         <div className="restaurant-detail-hero-overlay" />
         
-        {/* Navigation arrows */}
         {restaurant.images.length > 1 && (
           <>
             <button onClick={prevImage} className="restaurant-detail-hero-nav-btn prev">
@@ -47,7 +45,6 @@ export function RestaurantDetail({ restaurant, onClose, onReserve }: RestaurantD
           </>
         )}
 
-        {/* Top buttons */}
         <div className="restaurant-detail-hero-top">
           <button onClick={onClose} className="restaurant-detail-hero-close">
             <X size={20} />
@@ -67,7 +64,6 @@ export function RestaurantDetail({ restaurant, onClose, onReserve }: RestaurantD
           </div>
         )}
 
-        {/* Restaurant info overlay */}
         <div className="restaurant-detail-hero-info">
           <h1 className="restaurant-detail-hero-name">{restaurant.name}</h1>
 
@@ -86,7 +82,6 @@ export function RestaurantDetail({ restaurant, onClose, onReserve }: RestaurantD
         </div>
       </div>
 
-      {/* Thumbnail gallery */}
       {restaurant.images.length > 1 && (
         <div className="restaurant-detail-thumbnails">
           <div className="restaurant-detail-thumbnails-wrapper">
@@ -107,7 +102,6 @@ export function RestaurantDetail({ restaurant, onClose, onReserve }: RestaurantD
         </div>
       )}
 
-      {/* Content */}
       <div className="restaurant-detail-content">
         <div className="restaurant-detail-description">
           <p className="restaurant-detail-description-text">{restaurant.description}</p>
@@ -149,7 +143,6 @@ export function RestaurantDetail({ restaurant, onClose, onReserve }: RestaurantD
         </div>
       </div>
 
-      {/* Fixed bottom button */}
       <div className="restaurant-detail-booking">
         <button onClick={onReserve} className="restaurant-detail-booking-btn">
           Hacer una Reserva

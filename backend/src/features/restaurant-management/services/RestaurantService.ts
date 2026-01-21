@@ -2,7 +2,6 @@ import { supabase } from '../../../config/supabase';
 import type { Restaurant, RestaurantAmenities } from '../../../common/types/index';
 
 export class RestaurantService {
-  // Crear nuevo restaurante
   static async createRestaurant(
     ownerId: string,
     restaurantData: Omit<Restaurant, 'id' | 'created_at' | 'updated_at' | 'owner_id'>
@@ -22,7 +21,6 @@ export class RestaurantService {
     return data;
   }
 
-  // Obtener restaurante por ID
   static async getRestaurantById(id: string): Promise<Restaurant> {
     const { data, error } = await supabase
       .from('restaurants')
@@ -34,7 +32,6 @@ export class RestaurantService {
     return data;
   }
 
-  // Obtener todos los restaurantes del propietario
   static async getRestaurantsByOwner(ownerId: string): Promise<Restaurant[]> {
     const { data, error } = await supabase
       .from('restaurants')
@@ -45,7 +42,6 @@ export class RestaurantService {
     return data || [];
   }
 
-  // Actualizar restaurante
   static async updateRestaurant(id: string, updates: Partial<Restaurant>): Promise<Restaurant> {
     const { data, error } = await supabase
       .from('restaurants')
@@ -58,7 +54,6 @@ export class RestaurantService {
     return data;
   }
 
-  // Eliminar restaurante
   static async deleteRestaurant(id: string): Promise<void> {
     const { error } = await supabase
       .from('restaurants')
@@ -68,7 +63,6 @@ export class RestaurantService {
     if (error) throw new Error(error.message);
   }
 
-  // Agregar amenidades del restaurante
   static async addAmenities(restaurantId: string, amenities: Omit<RestaurantAmenities, 'created_at' | 'restaurant_id'>): Promise<RestaurantAmenities> {
     const { data, error } = await supabase
       .from('restaurant_amenities')
@@ -80,7 +74,6 @@ export class RestaurantService {
     return data;
   }
 
-  // Obtener amenidades del restaurante
   static async getAmenities(restaurantId: string): Promise<RestaurantAmenities> {
     const { data, error } = await supabase
       .from('restaurant_amenities')
@@ -92,7 +85,6 @@ export class RestaurantService {
     return data;
   }
 
-  // Actualizar amenidades
   static async updateAmenities(restaurantId: string, amenities: Partial<RestaurantAmenities>): Promise<RestaurantAmenities> {
     const { data, error } = await supabase
       .from('restaurant_amenities')

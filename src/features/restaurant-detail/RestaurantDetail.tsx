@@ -18,7 +18,6 @@ export function RestaurantDetail({ restaurant, onBack, onBooking }: RestaurantDe
 
   return (
     <div className="restaurant-detail-page">
-      {/* Header con botón de volver */}
       <div className="detail-header">
         <button onClick={onBack} className="detail-back-btn">
           <X size={24} />
@@ -26,9 +25,7 @@ export function RestaurantDetail({ restaurant, onBack, onBooking }: RestaurantDe
         </button>
       </div>
 
-      {/* Contenedor principal */}
       <div className="detail-container">
-        {/* Imagen principal */}
         <div className="detail-image-section">
           <ImageWithFallback
             src={restaurant.images[currentIndex]}
@@ -37,10 +34,8 @@ export function RestaurantDetail({ restaurant, onBack, onBooking }: RestaurantDe
           />
         </div>
 
-        {/* Información del restaurante */}
         <div className="detail-content">
           <div className="detail-content-inner">
-            {/* Título y tipo */}
             <div className="detail-title-section">
               <h1 className="detail-title">{restaurant.name}</h1>
               <div className="detail-meta">
@@ -49,12 +44,10 @@ export function RestaurantDetail({ restaurant, onBack, onBooking }: RestaurantDe
               </div>
             </div>
 
-            {/* Descripción */}
             <div className="detail-section">
               <p className="detail-description">{restaurant.description}</p>
             </div>
 
-            {/* Información de contacto */}
             <div className="detail-info-grid">
               <div className="detail-info-card">
                 <div className="detail-info-icon">
@@ -97,7 +90,6 @@ export function RestaurantDetail({ restaurant, onBack, onBooking }: RestaurantDe
               </div>
             </div>
 
-            {/* Botón de reserva */}
             <button onClick={onBooking} className="detail-reserve-btn">
               Reservar Mesa
             </button>

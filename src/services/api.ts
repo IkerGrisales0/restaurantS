@@ -1,5 +1,5 @@
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 interface BackendRestaurant {
   id: string;
   owner_id: string;
@@ -17,7 +17,6 @@ interface BackendRestaurant {
   updated_at: string;
 }
 
-// Adaptador: convertir formato backend a frontend
 function adaptRestaurant(backendRestaurant: BackendRestaurant): any {
   return {
     id: backendRestaurant.id,
@@ -43,9 +42,7 @@ function adaptRestaurant(backendRestaurant: BackendRestaurant): any {
   };
 }
 
-// Servicio de descubrimiento de restaurantes
 export const discoveryApi = {
-  // Obtener todos los restaurantes
   async getAllRestaurants(filters?: {
     search?: string;
     cuisineType?: string;
@@ -76,11 +73,9 @@ export const discoveryApi = {
       throw new Error(data.error || 'Error al obtener restaurantes');
     }
     
-    // Adaptar datos del backend al formato del frontend
     return (data.data || []).map(adaptRestaurant);
   },
 
-  // Obtener restaurante por ID
   async getRestaurantById(id: string) {
     const response = await fetch(`${API_URL}/restaurants/${id}`);
     const data = await response.json();
@@ -92,7 +87,6 @@ export const discoveryApi = {
     return adaptRestaurant(data.data);
   },
 
-  // Obtener restaurantes populares
   async getPopularRestaurants(limit: number = 6) {
     const response = await fetch(`${API_URL}/discovery/popular?limit=${limit}`);
     const data = await response.json();
@@ -105,9 +99,7 @@ export const discoveryApi = {
   }
 };
 
-// Servicio de gestión de restaurantes (para propietarios)
 export const restaurantApi = {
-  // Obtener mi restaurante (del dueño autenticado)
   async getMyRestaurant() {
     const token = localStorage.getItem('authToken');
     if (!token) return null;
@@ -120,7 +112,6 @@ export const restaurantApi = {
     const list = data.data || [];
     return list.length ? adaptRestaurant(list[0]) : null;
   },
-  // Crear restaurante
   async createRestaurant(restaurantData: {
     name: string;
     description: string;
@@ -151,7 +142,6 @@ export const restaurantApi = {
     return data.data;
   },
 
-  // Agregar amenidades al restaurante
   async addAmenities(restaurantId: string, amenities: {
     wifi: boolean;
     parking: boolean;
@@ -178,7 +168,6 @@ export const restaurantApi = {
     return data.data;
   },
 
-  // Actualizar datos del restaurante (para setup)
   async updateRestaurant(restaurantId: string, restaurantData: {
     name?: string;
     description?: string;
@@ -210,9 +199,7 @@ export const restaurantApi = {
   }
 };
 
-// Servicio de autenticación
 export const authApi = {
-  // Registrar usuario
   async register(userData: { email: string; password: string; role: 'restaurant' | 'customer'; restaurantName?: string; address?: string; phone?: string }) {
     const response = await fetch(`${API_URL}/auth/register`, {
       method: 'POST',
@@ -226,7 +213,6 @@ export const authApi = {
     return data;
   },
 
-  // Login
   async login(credentials: { email: string; password: string }) {
     const response = await fetch(`${API_URL}/auth/login`, {
       method: 'POST',
@@ -240,7 +226,6 @@ export const authApi = {
     return data;
   },
 
-  // Obtener usuario actual
   async getCurrentUser(token: string) {
     const response = await fetch(`${API_URL}/auth/current`, {
       headers: {
@@ -258,9 +243,7 @@ export const authApi = {
   }
 };
 
-// Servicio de reservas
 export const bookingApi = {
-  // Crear reserva
   async createBooking(bookingData: {
     restaurantId: string;
     date: string;
@@ -285,11 +268,14 @@ export const bookingApi = {
       })
     });
     
+    if (response.status === 401) {
+      return { success: false, error: 'Sesión expirada o inválida. Inicia sesión nuevamente.' };
+    }
+
     const data = await response.json();
     return data;
   },
 
-  // Obtener disponibilidad
   async getAvailability(restaurantId: string, date: string) {
     const response = await fetch(`${API_URL}/bookings/${restaurantId}/availability?date=${date}`);
     const data = await response.json();
