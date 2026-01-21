@@ -197,20 +197,21 @@
 
 /* Price Selector */
 .price-selector {
-  display: flex;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
   margin-top: 0.5rem;
 }
 
 .price-button {
-  flex: 1;
-  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem;
   border: 2px solid var(--color-neutral-200);
-  border-radius: 8px;
+  border-radius: 12px;
   background-color: #fafafa;
-  font-weight: 600;
-  font-size: 0.875rem;
-  color: var(--color-neutral-700);
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -218,12 +219,47 @@
 .price-button:hover {
   border-color: var(--color-green);
   background-color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
 }
 
 .price-button.active {
   background-color: var(--color-green);
   border-color: var(--color-green);
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.25);
+}
+
+.price-symbol {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-green);
+  transition: color 0.2s;
+}
+
+.price-button.active .price-symbol {
   color: var(--color-white);
+}
+
+.price-range {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-neutral-700);
+  transition: color 0.2s;
+}
+
+.price-button.active .price-range {
+  color: var(--color-white);
+}
+
+.price-desc {
+  font-size: 0.75rem;
+  color: var(--color-neutral-500);
+  text-align: center;
+  transition: color 0.2s;
+}
+
+.price-button.active .price-desc {
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Hours Input */

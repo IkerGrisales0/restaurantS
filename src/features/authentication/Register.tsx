@@ -1,8 +1,11 @@
-import { Mail, Lock, Utensils, User, Phone, AlertCircle } from "lucide-react";
+import { Mail, Lock, Utensils, User, Phone, AlertCircle, MapPin } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { authApi } from "../../services/api";
 
 // Schema de validación con Zod
 const registerSchema = z
@@ -19,6 +22,7 @@ const registerSchema = z
       .string()
       .min(1, "El teléfono es requerido")
       .regex(/^[\d\s\-\+\(\)]+$/, "Teléfono inválido"),
+    address: z.string().optional(),
     password: z
       .string()
       .min(6, "La contraseña debe tener al menos 6 caracteres"),
@@ -34,11 +38,13 @@ type RegisterFormData = z.infer<typeof registerSchema>;
 interface RegisterProps {
   onSwitchToLogin: () => void;
   onBackToHome: () => void;
-  onCompleteSetup?: () => void;
+  onCompleteSetup?: (userData: { email: string; name: string; phone: string; role: string }) => void;
 }
 
 export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: RegisterProps) {
+    const navigate = useNavigate();
   const [registrationError, setRegistrationError] = useState<string | null>(null);
+  const [roleTab, setRoleTab] = useState<'customer' | 'restaurant'>('customer');
   
   const {
     register,
@@ -59,15 +65,60 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
   const onSubmit = async (data: RegisterFormData) => {
     try {
       setRegistrationError(null);
-      
-      // Redirigir a la página de configuración del restaurante sin validar
-      if (onCompleteSetup) {
-        onCompleteSetup();
-      }
-      reset();
+
+        // Forzar rol según la pestaña seleccionada
+        const role = roleTab;
+
+        // Validación adicional: dirección requerida para restaurantes
+        if (role === 'restaurant' && (!data.address || !data.address.trim())) {
+          await Swal.fire({
+            title: "Falta la dirección",
+            text: "La dirección es obligatoria para cuentas de restaurante",
+            icon: "warning",
+            confirmButtonText: "Entendido",
+            confirmButtonColor: "#10b981",
+          });
+          return;
+        }
+
+        // Registrar usuario en el backend (si restaurante, enviar datos mínimos)
+        const response = await authApi.register({
+          email: data.email,
+          password: data.password,
+          role,
+          restaurantName: role === 'restaurant' ? data.name : undefined,
+          address: role === 'restaurant' ? data.address : undefined,
+          phone: data.phone,
+        });
+
+        if (!response.success) {
+          throw new Error(response.error || "Error al crear la cuenta");
+        }
+
+        // Mostrar alerta de éxito
+        await Swal.fire({
+          title: "¡Cuenta creada!",
+          text: "Tu cuenta ha sido creada exitosamente. Por favor inicia sesión.",
+          icon: "success",
+          confirmButtonText: "Ir a Login",
+          confirmButtonColor: "#10b981",
+          timer: 3000,
+        });
+
+        // Volver a la vista de login sin auto-login
+        reset();
+        navigate('/auth/login');
     } catch (error) {
-      setRegistrationError("Error al crear la cuenta. Intenta de nuevo.");
+        const errorMessage = error instanceof Error ? error.message : "Error al crear la cuenta";
+        setRegistrationError(errorMessage);
       console.error("Error en registro:", error);
+
+        await Swal.fire({
+          title: "Error",
+          text: errorMessage,
+          icon: "error",
+          confirmButtonText: "Reintentar",
+        });
     }
   };
 
@@ -90,10 +141,28 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
           )}
 
           <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
+            {/* Tabs para seleccionar tipo de cuenta */}
+            <div className="auth-tabs">
+              <button
+                type="button"
+                className={`auth-tab ${roleTab === 'customer' ? 'active' : ''}`}
+                onClick={() => setRoleTab('customer')}
+              >
+                Cliente
+              </button>
+              <button
+                type="button"
+                className={`auth-tab ${roleTab === 'restaurant' ? 'active' : ''}`}
+                onClick={() => setRoleTab('restaurant')}
+              >
+                Restaurante
+              </button>
+            </div>
+
             {/* Campo: Nombre */}
             <div className="auth-field">
               <label className="auth-label" htmlFor="name">
-                Nombre completo
+                {roleTab === 'restaurant' ? 'Nombre del restaurante' : 'Nombre completo'}
               </label>
               <div className="auth-input-wrapper">
                 <User className="auth-input-icon" />
@@ -102,7 +171,7 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
                   {...register("name")}
                   type="text"
                   className={`auth-input ${errors.name ? "border-red-500" : ""}`}
-                  placeholder="Juan Pérez"
+                  placeholder={roleTab === 'restaurant' ? 'Mi Restaurante' : 'Juan Pérez'}
                 />
               </div>
               {errors.name && (
@@ -159,6 +228,31 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
               )}
             </div>
 
+            {/* Campo: Dirección (solo restaurante) */}
+            {roleTab === 'restaurant' && (
+              <div className="auth-field">
+                <label className="auth-label" htmlFor="address">
+                  Dirección
+                </label>
+                <div className="auth-input-wrapper">
+                  <MapPin className="auth-input-icon" />
+                  <input
+                    id="address"
+                    {...register("address")}
+                    type="text"
+                    className={`auth-input ${errors.address ? "border-red-500" : ""}`}
+                    placeholder="Calle Principal 123, Madrid"
+                  />
+                </div>
+                {errors.address && (
+                  <div className="flex items-center gap-1 text-red-500 text-sm mt-1">
+                    <AlertCircle size={16} />
+                    {errors.address.message}
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Campo: Contraseña */}
             <div className="auth-field">
               <label className="auth-label" htmlFor="password">
@@ -210,7 +304,7 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
               className="auth-submit disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Creando cuenta..." : "Registrarse"}
+              {isSubmitting ? "Creando cuenta..." : "Crear Cuenta"}
             </button>
           </form>
 
@@ -219,14 +313,14 @@ export function Register({ onSwitchToLogin, onBackToHome, onCompleteSetup }: Reg
             <button
               type="button"
               className="auth-link"
-              onClick={onSwitchToLogin}
+              onClick={() => navigate('/auth/login')}
             >
               Inicia sesión
             </button>
           </div>
         </div>
 
-        <button className="auth-back-button" onClick={onBackToHome}>
+        <button className="auth-back-button" onClick={() => navigate('/')}>
           Volver al inicio
         </button>
       </div>

@@ -12,7 +12,15 @@ import {
   Type,
   FileText,
   Image as ImageIcon,
+  Car,
+  Accessibility,
+  Wind,
+  Music,
+  Truck,
+  CreditCard,
 } from "lucide-react";
+import Swal from "sweetalert2";
+import { restaurantApi } from "../../services/api";
 import "./restaurant-setup.css";
 
 interface RestaurantForm {
@@ -22,38 +30,54 @@ interface RestaurantForm {
   address: string;
   price: number;
   description: string;
-  hours: {
-    [key: string]: string;
-  };
+  openingTime: string;
+  closingTime: string;
   amenities: {
     wifi: boolean;
     terrace: boolean;
     petFriendly: boolean;
+    parking: boolean;
+    wheelchair: boolean;
+    airConditioning: boolean;
+    liveMusic: boolean;
+    delivery: boolean;
+    cardPayment: boolean;
   };
 }
 
 interface RestaurantSetupProps {
   onComplete: (data: RestaurantForm) => void;
   onCancel: () => void;
+  initialData?: {
+    email: string;
+    name: string;
+    phone: string;
+    address?: string;
+  };
 }
 
-export function RestaurantSetup({ onComplete, onCancel }: RestaurantSetupProps) {
+export function RestaurantSetup({ onComplete, onCancel, initialData }: RestaurantSetupProps) {
   const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState<RestaurantForm>({
-    name: "",
+    name: initialData?.name || "",
     cuisine: "",
-    city: "",
-    address: "",
+    city: initialData?.address?.split(',').pop()?.trim() || "",
+    address: initialData?.address || "",
     price: 2,
     description: "",
-    hours: {
-      "Lunes-Viernes": "13:00 - 16:00, 20:00 - 23:30",
-      "Sábado-Domingo": "13:00 - 00:00",
-    },
+    openingTime: "13:00",
+    closingTime: "23:30",
     amenities: {
       wifi: false,
       terrace: false,
       petFriendly: false,
+      parking: false,
+      wheelchair: false,
+      airConditioning: false,
+      liveMusic: false,
+      delivery: false,
+      cardPayment: false,
     },
   });
 
@@ -61,16 +85,6 @@ export function RestaurantSetup({ onComplete, onCancel }: RestaurantSetupProps) 
     setForm((prev) => ({
       ...prev,
       [field]: value,
-    }));
-  };
-
-  const handleHoursChange = (day: string, value: string) => {
-    setForm((prev) => ({
-      ...prev,
-      hours: {
-        ...prev.hours,
-        [day]: value,
-      },
     }));
   };
 
@@ -94,9 +108,67 @@ export function RestaurantSetup({ onComplete, onCancel }: RestaurantSetupProps) 
     if (currentStep < 3) setCurrentStep(currentStep + 1);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (isStep1Valid && isStep2Valid && isStep3Valid) {
-      onComplete(form);
+      setIsSubmitting(true);
+      try {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          throw new Error("No hay sesión activa");
+        }
+
+        // Obtener restaurante del usuario
+        const restaurantData = await restaurantApi.getMyRestaurant();
+        
+        if (!restaurantData || !restaurantData.id) {
+          throw new Error("No se encontró el restaurante");
+        }
+
+        // Extraer horarios correctamente
+        const opening = form.openingTime.substring(0, 5);
+        const closing = form.closingTime.substring(0, 5);
+
+        console.log('Enviando actualización:', {
+          cuisine_type: form.cuisine,
+          description: form.description,
+          opening_time: opening,
+          closing_time: closing,
+          average_price: form.price * 25,
+        });
+
+        // Actualizar datos en la BD
+        await restaurantApi.updateRestaurant(
+          restaurantData.id,
+          {
+            cuisine_type: form.cuisine,
+            description: form.description,
+            opening_time: opening,
+            closing_time: closing,
+            average_price: form.price * 25,
+          },
+          token
+        );
+
+        await Swal.fire({
+          title: "¡Setup completado!",
+          text: "Tu restaurante está listo. Bienvenido al dashboard.",
+          icon: "success",
+          confirmButtonText: "Continuar",
+          confirmButtonColor: "#10b981",
+        });
+
+        onComplete(form);
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : "Error al completar setup";
+        await Swal.fire({
+          title: "Error",
+          text: errorMessage,
+          icon: "error",
+          confirmButtonText: "Reintentar",
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -212,21 +284,26 @@ export function RestaurantSetup({ onComplete, onCancel }: RestaurantSetupProps) 
                   Rango de Precios
                 </label>
                 <div className="price-selector">
-                  {[1, 2, 3, 4].map((price) => (
+                  {[
+                    { value: 1, label: '$', range: '€5-15', desc: 'Económico' },
+                    { value: 2, label: '$$', range: '€15-30', desc: 'Moderado' },
+                    { value: 3, label: '$$$', range: '€30-50', desc: 'Caro' },
+                    { value: 4, label: '$$$$', range: '€50+', desc: 'Muy Caro' }
+                  ].map((price) => (
                     <button
-                      key={price}
+                      key={price.value}
+                      type="button"
                       className={`price-button ${
-                        form.price === price ? "active" : ""
+                        form.price === price.value ? "active" : ""
                       }`}
-                      onClick={() => handleInputChange("price", price)}
+                      onClick={() => handleInputChange("price", price.value)}
                     >
-                      {"$".repeat(price)}
+                      <div className="price-symbol">{price.label}</div>
+                      <div className="price-range">{price.range}</div>
+                      <div className="price-desc">{price.desc}</div>
                     </button>
                   ))}
                 </div>
-                <p className="form-help-text">
-                  1 = Económico | 2 = Moderado | 3 = Caro | 4 = Muy Caro
-                </p>
               </div>
             </div>
           )}
@@ -258,25 +335,33 @@ export function RestaurantSetup({ onComplete, onCancel }: RestaurantSetupProps) 
               <div className="form-group">
                 <label className="form-label">
                   <Clock size={18} />
-                  Horarios de Apertura
+                  Horario de Atención
                 </label>
-
-                {Object.keys(form.hours).map((day) => (
-                  <div key={day} className="hours-input-group">
-                    <label className="hours-day-label">{day}</label>
+                
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">Hora de Apertura</label>
                     <input
-                      type="text"
+                      type="time"
                       className="form-input"
-                      placeholder="Ej: 13:00 - 16:00, 20:00 - 23:30"
-                      value={form.hours[day]}
-                      onChange={(e) => handleHoursChange(day, e.target.value)}
+                      value={form.openingTime}
+                      onChange={(e) => handleInputChange("openingTime", e.target.value)}
                     />
                   </div>
-                ))}
+
+                  <div className="form-group">
+                    <label className="form-label">Hora de Cierre</label>
+                    <input
+                      type="time"
+                      className="form-input"
+                      value={form.closingTime}
+                      onChange={(e) => handleInputChange("closingTime", e.target.value)}
+                    />
+                  </div>
+                </div>
 
                 <p className="form-help-text">
-                  Usa el formato: HH:MM - HH:MM (puedes añadir múltiples horarios
-                  separados por comas)
+                  Horario general de atención del restaurante
                 </p>
               </div>
             </div>
@@ -345,6 +430,114 @@ export function RestaurantSetup({ onComplete, onCancel }: RestaurantSetupProps) 
                     <CheckCircle className="amenity-check" size={24} />
                   )}
                 </div>
+
+                <div
+                  className={`amenity-card ${
+                    form.amenities.parking ? "active" : ""
+                  }`}
+                  onClick={() => handleAmenityChange("parking")}
+                >
+                  <div className="amenity-icon">
+                    <Car size={32} />
+                  </div>
+                  <h3 className="amenity-title">Estacionamiento</h3>
+                  <p className="amenity-description">
+                    Cuentas con estacionamiento para clientes
+                  </p>
+                  {form.amenities.parking && (
+                    <CheckCircle className="amenity-check" size={24} />
+                  )}
+                </div>
+
+                <div
+                  className={`amenity-card ${
+                    form.amenities.wheelchair ? "active" : ""
+                  }`}
+                  onClick={() => handleAmenityChange("wheelchair")}
+                >
+                  <div className="amenity-icon">
+                    <Accessibility size={32} />
+                  </div>
+                  <h3 className="amenity-title">Accesibilidad</h3>
+                  <p className="amenity-description">
+                    Acceso para sillas de ruedas
+                  </p>
+                  {form.amenities.wheelchair && (
+                    <CheckCircle className="amenity-check" size={24} />
+                  )}
+                </div>
+
+                <div
+                  className={`amenity-card ${
+                    form.amenities.airConditioning ? "active" : ""
+                  }`}
+                  onClick={() => handleAmenityChange("airConditioning")}
+                >
+                  <div className="amenity-icon">
+                    <Wind size={32} />
+                  </div>
+                  <h3 className="amenity-title">Aire Acondicionado</h3>
+                  <p className="amenity-description">
+                    Ambiente climatizado
+                  </p>
+                  {form.amenities.airConditioning && (
+                    <CheckCircle className="amenity-check" size={24} />
+                  )}
+                </div>
+
+                <div
+                  className={`amenity-card ${
+                    form.amenities.liveMusic ? "active" : ""
+                  }`}
+                  onClick={() => handleAmenityChange("liveMusic")}
+                >
+                  <div className="amenity-icon">
+                    <Music size={32} />
+                  </div>
+                  <h3 className="amenity-title">Música en Vivo</h3>
+                  <p className="amenity-description">
+                    Espectáculos musicales en vivo
+                  </p>
+                  {form.amenities.liveMusic && (
+                    <CheckCircle className="amenity-check" size={24} />
+                  )}
+                </div>
+
+                <div
+                  className={`amenity-card ${
+                    form.amenities.delivery ? "active" : ""
+                  }`}
+                  onClick={() => handleAmenityChange("delivery")}
+                >
+                  <div className="amenity-icon">
+                    <Truck size={32} />
+                  </div>
+                  <h3 className="amenity-title">Delivery</h3>
+                  <p className="amenity-description">
+                    Servicio de entrega a domicilio
+                  </p>
+                  {form.amenities.delivery && (
+                    <CheckCircle className="amenity-check" size={24} />
+                  )}
+                </div>
+
+                <div
+                  className={`amenity-card ${
+                    form.amenities.cardPayment ? "active" : ""
+                  }`}
+                  onClick={() => handleAmenityChange("cardPayment")}
+                >
+                  <div className="amenity-icon">
+                    <CreditCard size={32} />
+                  </div>
+                  <h3 className="amenity-title">Pago con Tarjeta</h3>
+                  <p className="amenity-description">
+                    Aceptas tarjetas de crédito/débito
+                  </p>
+                  {form.amenities.cardPayment && (
+                    <CheckCircle className="amenity-check" size={24} />
+                  )}
+                </div>
               </div>
 
               <div className="setup-info">
@@ -392,8 +585,9 @@ export function RestaurantSetup({ onComplete, onCancel }: RestaurantSetupProps) 
             <button
               className="button-primary"
               onClick={handleSubmit}
+              disabled={isSubmitting}
             >
-              Completar Configuración
+              {isSubmitting ? "Guardando..." : "Completar Configuración"}
             </button>
           )}
         </div>

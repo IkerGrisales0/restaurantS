@@ -47,3 +47,9 @@
   align-items: center;
   gap: 0.75rem;
 }
+
+.navbar-actions .btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

@@ -1,0 +1,76 @@
+.user-profile {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.user-profile-header {
+  margin-bottom: 2rem;
+}
+
+.user-profile-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-neutral-900);
+  margin-bottom: 0.5rem;
+}
+
+.user-profile-subtitle {
+  color: var(--color-neutral-600);
+}
+
+.user-profile-form {
+  background-color: var(--color-white);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile-field {
+  margin-bottom: 1.5rem;
+}
+
+.user-profile-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-neutral-700);
+  margin-bottom: 0.5rem;
+}
+
+.user-profile-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-neutral-300);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.user-profile-input:focus {
+  outline: none;
+  border-color: var(--color-green);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.user-profile-button {
+  width: 100%;
+  padding: 0.875rem;
+  background-color: var(--color-green);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.user-profile-button:hover {
+  background-color: var(--color-green-dark);
+}
+
+.user-profile-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

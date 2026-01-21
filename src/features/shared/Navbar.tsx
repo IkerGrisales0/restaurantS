@@ -1,11 +1,13 @@
-import { Utensils } from "lucide-react";
+import { Utensils, LogOut } from "lucide-react";
 
 interface NavbarProps {
   onLoginClick?: () => void;
   onLogoClick?: () => void;
+  isAuthenticated?: boolean;
+  onLogout?: () => void;
 }
 
-export function Navbar({ onLoginClick, onLogoClick }: NavbarProps) {
+export function Navbar({ onLoginClick, onLogoClick, isAuthenticated, onLogout }: NavbarProps) {
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -17,9 +19,16 @@ export function Navbar({ onLoginClick, onLogoClick }: NavbarProps) {
         </button>
 
         <div className="navbar-actions">
-          <button className="btn btn-primary" onClick={onLoginClick}>
-            Iniciar sesión
-          </button>
+          {isAuthenticated ? (
+            <button className="btn btn-secondary" onClick={onLogout}>
+              <LogOut size={16} />
+              Cerrar sesión
+            </button>
+          ) : (
+            <button className="btn btn-primary" onClick={onLoginClick}>
+              Iniciar sesión
+            </button>
+          )}
         </div>
       </div>
     </nav>
